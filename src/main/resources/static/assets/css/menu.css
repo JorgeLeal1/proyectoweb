@@ -1,0 +1,27 @@
+.home {
+	width: 30px;
+	height: 30px;
+	background-image: url("../img/home.png");
+	background-repeat: no-repeat;
+}
+
+.home:hover {
+	width: 30px;
+	height: 30px;
+	background-image: url("../img/home2.png");
+	background-repeat: no-repeat;
+}
+
+.login {
+	width: 30px;
+	height: 30px;
+	background-image: url("../img/login.jpg");
+	background-repeat: no-repeat;
+}
+
+.login:hover {
+	width: 30px;
+	height: 30px;
+	background-image: url("../img/login2.jpg");
+	background-repeat: no-repeat;
+}

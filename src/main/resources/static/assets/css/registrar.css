@@ -1,0 +1,14 @@
+.fondo {
+    background-image: url('../img/fondo.png');
+    background-repeat: repeat-x;
+}
+
+.padding_left_right_5{
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+
+.span_required{
+	color:red;
+}
