@@ -30,7 +30,7 @@ public class HomeController {
 	@GetMapping("/home")//ruta home
 	public String home(Model model) {
 		
-		//obtiene de la variable de session el run del usuario logeado
+		//obtiene la variable session el run del usuario logeado
 		String run = (String) model.getAttribute("run");
 		//System.out.println(run);
 		

@@ -39,8 +39,9 @@
 				<div class="navbar-nav">
 					<a class="nav-link" aria-current="page" href="depositar">Depositar saldo</a> 
 					<a class="nav-link" aria-current="page" href="retirar">Retirar saldo</a> 
+					<a class="nav-link" aria-current="page" href=transferir>Transferir</a>						
 					<a class="nav-link" aria-current="page" href="viewAllCuentas">Listar Cuentas</a>
-					<a class="nav-link" aria-current="page" href="nuevaCuentas">Crear Cuenta</a>					
+				
 				</div>
 			</div>
 			<span class="navbar-text"> <a style="float: right;"
@@ -95,6 +96,20 @@
 								</a>
 							</div>
 						</div>
+						
+						<div class="col">
+							<div class="card h-100">
+								<a class="nav-link" href="javascript:void(0)"
+									id="linkTransferir"> <img
+									src="/assets/img/ultimosMovimientos.jpg" width="150px"
+									height="150px" class="card-img-top" alt="...">
+									<div class="card-body">
+										<h6>Transferir</h6>
+									</div>
+								</a>
+							</div>
+						</div>							
+						
 						<div class="col">
 							<div class="card h-100">
 								<a class="nav-link" href="javascript:void(0)"
@@ -108,18 +123,7 @@
 							</div>
 						</div>
 						
-						<div class="col">
-							<div class="card h-100">
-								<a class="nav-link" href="javascript:void(0)"
-									id="linkCrearCuenta"> <img
-									src="/assets/img/ultimosMovimientos.jpg" width="150px"
-									height="150px" class="card-img-top" alt="...">
-									<div class="card-body">
-										<h6>Crear Cuenta</h6>
-									</div>
-								</a>
-							</div>
-						</div>						
+					
 					</div>
 
 					<br>

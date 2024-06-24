@@ -40,12 +40,10 @@
 			</button>
 			<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
 				<div class="navbar-nav">
-					<a class="nav-link" aria-current="page" href="FormRealizarDeposito">Depositar
-						saldo</a> <a class="nav-link" aria-current="page"
-						href="FormRealizarRetiro">Retirar saldo</a> <a
-						class="nav-link active" aria-current="page" href="viewAllCuentas">Listar
-						Cuentas</a>
-					<a class="nav-link" aria-current="page" href="/alkewallet_mvc/cuentas/nuevaCuentas.jsp">Crear Cuenta</a>								
+					<a class="nav-link" aria-current="page" href="depositar">Depositar
+						saldo</a> <a class="nav-link" aria-current="page" href="retirar">Retirar
+						saldo</a> <a class="nav-link" aria-current="page" href=transferir>Transferir</a>
+					<a class="nav-link" aria-current="page" href="Movimientos">Movimientos</a>							
 				</div>
 			</div>
 			<span class="navbar-text"> <a style="float: right;"

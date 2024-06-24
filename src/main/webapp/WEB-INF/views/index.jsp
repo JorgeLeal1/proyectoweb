@@ -26,13 +26,13 @@
 					<div class="form-group has-validation">
 						<label for="run" class="form-label">Ingresa tu Run:</label>
 						<input type="text" class="form-control form-control-lg " id="run" name="run"
-							placeholder="11111111-1" min="1" max="50" required="required" >
+							placeholder="11111111-1" maxlength="12" required="required" >
 					</div>
 					<br>
 					<div class="form-group has-validation">
 						<label for="contrasena" class="form-label">Ingresa tu Contraseña:</label>
 						<input type="password" class="form-control form-control-lg" id="contrasena" name="contrasena"
-							placeholder="Ingrese su contraseña" autocomplete="off" min="1" max="50" required="required">
+							placeholder="Ingrese su contraseña" autocomplete="off" maxlength="50" required="required">
 					</div>
 					<br>
 					<button type="submit" class="btn btn-primary w-100 py-2" value="submit">Iniciar sesión</button>

@@ -39,7 +39,7 @@
 									class="span_required">*</span></label>
 								<div class="col-xxl-4 col-xl-4 col-md-4 ">
 									<input type="text" class="form-control" id="run" name="run"
-										placeholder="11111111-1" required="required">
+										placeholder="11111111-1" maxlength="12" required="required">
 								</div>
 							</div>
 							<div class="form-group row" style="margin-bottom: 5px">
@@ -48,16 +48,16 @@
 									class="span_required">*</span></label>
 								<div class="col-xxl-4 col-xl-4 col-md-4">
 									<input type="text" class="form-control" id="nombre1"
-										name="nombre1" placeholder="Ingrese nombre1"
+										name="nombre1" maxlength="45" placeholder="Ingrese nombre1"
 										required="required">
 								</div>
 
-								<label for="Nombre2"
+								<label for="nombre2"
 									class="padding_left_right_5 col-xxl-2 col-xl-2 col-md-2 col-form-label fw-bold">Nombre2<span
 									class="span_required">*</span></label>
 								<div class="col-xxl-4 col-xl-4 col-md-4">
 									<input type="text" class="form-control" id="nombre2"
-										name="nombre2" placeholder="Ingrese Nombre2"
+										name="nombre2"  maxlength="45" placeholder="Ingrese Nombre2"
 										required="required">
 								</div>
 							</div>
@@ -68,7 +68,7 @@
 									class="span_required">*</span></label>
 								<div class="col-xxl-4 col-xl-4 col-md-4">
 									<input type="text" class="form-control" id="appaterno"
-										name="appaterno" placeholder="Ingrese Apellido Paterno"
+										name="appaterno"  maxlength="45" placeholder="Ingrese Apellido Paterno"
 										required="required">
 								</div>
 
@@ -77,7 +77,7 @@
 									class="span_required">*</span></label>
 								<div class="col-xxl-4 col-xl-4 col-md-4">
 									<input type="text" class="form-control" id="apmaterno"
-										name="apmaterno" placeholder="Ingrese Apellido Paterno"
+										name="apmaterno"  maxlength="45" placeholder="Ingrese Apellido Paterno"
 										required="required">
 								</div>
 							</div>
@@ -98,8 +98,8 @@
 								</label>
 								<div class="col-xxl-4 col-xl-4 col-md-4">
 									<input type="number" class="form-control" id="nrocuenta"
-										name="nrocuenta" placeholder="Ingrese nrocuenta" min="1"
-										required="required">
+										name="nrocuenta"  min="1" max="20" placeholder="Ingrese nrocuenta"
+										required="required" oninput="if(this.value.length > 20) this.value = this.value.slice(0, 20);">
 								</div>
 							</div>
 
@@ -109,7 +109,7 @@
 									class="span_required">*</span></label>
 								<div class="col-xxl-4 col-xl-4 col-md-4">
 									<input type="text" class="form-control" id="alias" name="alias"
-										placeholder="Ingrese alias" required="required">
+										placeholder="Ingrese alias"  maxlength="45" required="required">
 								</div>
 
 								<label for="banco"
@@ -117,7 +117,7 @@
 									class="span_required">*</span></label>
 								<div class="col-xxl-4 col-xl-4 col-md-4">
 									<input type="text" class="form-control" id="banco" name="banco"
-										placeholder="Ingrese banco" required="required">
+										placeholder="Ingrese banco"  maxlength="45" required="required">
 								</div>
 							</div>
 						</div>
@@ -135,7 +135,7 @@
 									class="span_required">*</span></label>
 								<div class="ccol-xxl-4 col-xl-4 col-md-4">
 									<input type="text" class="form-control" id="nombreUsuario"
-										name="nombreUsuario" placeholder="Ingrese nombreUsuario"
+										name="nombreUsuario"  maxlength="45" placeholder="Ingrese nombreUsuario"
 										required="required">
 								</div>
 							</div>
@@ -146,7 +146,7 @@
 									class="span_required">*</span></label>
 								<div class="ccol-xxl-4 col-xl-4 col-md-4">
 									<input type="email" class="form-control" id="email"
-										name="email" placeholder="Ingrese email" required="required">
+										name="email" placeholder="Ingrese email"  maxlength="60" required="required">
 								</div>
 
 								<label for="contrasena"
@@ -154,7 +154,7 @@
 									class="span_required">*</span></label>
 								<div class="col-xxl-4 col-xl-4 col-md-4">
 									<input type="password" class="form-control" id="contrasena"
-										name="contrasena" placeholder="Ingrese Contraseña"
+										name="contrasena"  maxlength="50" placeholder="Ingrese Contraseña"
 										required="required" autocomplete="off">
 								</div>
 							</div>

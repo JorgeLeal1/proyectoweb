@@ -37,10 +37,10 @@
 			</button>
 			<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
 				<div class="navbar-nav">
-					<a class="nav-link" aria-current="page" href="depositar">Depositar saldo</a> 
-					<a class="nav-link" aria-current="page" href="retirar">Retirar saldo</a> 
-					<a class="nav-link" aria-current="page" href="viewAllCuentas">Listar Cuentas</a>
-					<a class="nav-link" aria-current="page" href="nuevaCuentas">Crear Cuenta</a>					
+					<a class="nav-link" aria-current="page" href="depositar">Depositar
+						saldo</a> <a class="nav-link" aria-current="page" href="retirar">Retirar
+						saldo</a> <a class="nav-link" aria-current="page" href=transferir>Transferir</a>
+					<a class="nav-link" aria-current="page" href="Movimientos">Movimientos</a>			
 				</div>
 			</div>
 			<span class="navbar-text"> <a style="float: right;"
@@ -70,7 +70,7 @@
 								actual:</label>
 							<div class="col-sm-8">
 								<input type="number" class="form-control" id="saldo_actual"
-									name="saldo_actual" step="0.001" 
+									name="saldo_actual" step="0.01" 
 									value="<%out.print(request.getAttribute("saldo"));%>" readonly>
 							</div>
 						</div>
@@ -79,7 +79,7 @@
 							<label for="saldo"
 								class="col-sm-2 col-form-label fw-bold">Saldo a retirar:</label>
 							<div class="col-sm-8">
-								<input type="number" class="form-control" id="saldo" step="0.001"  min="1.000"
+								<input type="number" class="form-control" id="saldo" step="0.01" min="1.0"
 									name="saldo" placeholder="Ingrese saldo" required="required">
 							</div>
 							<div class="col-sm-2">

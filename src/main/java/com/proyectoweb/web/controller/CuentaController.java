@@ -31,7 +31,6 @@ public class CuentaController {
 	private ClienteServiceInterface clienteServiceInterface;
 	private UsuarioServiceInterface usuarioServiceInterface;
 	
-
 	public CuentaController(
 			CuentaServiceInterface cuentaServiceInterface, 
 			ClienteServiceInterface clienteServiceInterface, 
@@ -156,6 +155,17 @@ public class CuentaController {
 			
 			return "redirect:/proyectoweb/retirar";
 	}
+	
+	@GetMapping("/transferir")
+	public String transferir( Model model){
+		String run = (String) model.getAttribute("run");
+		model.addAttribute("saldo",cuentaServiceInterface.consultarSaldoPorRun(run));  		
+		return "cuenta/transferir";
+	}
+	
+	
+	
+	
 	/*
 	@GetMapping("/transacciones")//ruta home
 	public String viewAllCuentas( Model model){

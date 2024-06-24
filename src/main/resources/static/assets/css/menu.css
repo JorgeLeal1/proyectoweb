@@ -25,3 +25,7 @@
 	background-image: url("../img/login2.jpg");
 	background-repeat: no-repeat;
 }
+
+.span_required{
+	color:red;
+}
