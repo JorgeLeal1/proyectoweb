@@ -1,5 +1,7 @@
 package com.proyectoweb.web.dao;
 
+import java.sql.ResultSet;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,10 +20,69 @@ public class ClienteDaoImp implements ClienteDaoInterface{
 	
 	@Override
 	public List<ClienteModel> obtenerTodo() {
-		// TODO Auto-generated method stub
-		return null;
+		try {
+		// selecciona todos los registros de la bd ordenado por run cliente
+		String query = "SELECT run, nombre1, nombre2, appaterno, apmaterno "
+						+ "FROM cliente "
+						+ "order by run";
+				
+		  List<ClienteModel> lista = jdbcTemplate.query(query,
+				  (ResultSet rs, int rowNum) -> {
+			
+					//Crea objeto cliente
+					ClienteModel cliente = new ClienteModel();
+					cliente.setRun(rs.getString("run")); 
+					cliente.setNombre1(rs.getString("nombre1"));
+					cliente.setNombre2(rs.getString("nombre2"));
+					cliente.setAppaterno(rs.getString("appaterno"));
+					cliente.setApmaterno(rs.getString("apmaterno"));
+					
+					return cliente;
+				}); 
+
+		  return lista;
+		
+		}catch(Exception ex) {
+			System.out.println("Error: "+ ex.getMessage());
+			return new ArrayList<>();
+		}
 	}
 
+	@Override
+	public ClienteModel obtenerCliente(String run) {
+		try {
+		// selecciona todos los registros de la bd ordenado por run cliente
+		String query = "SELECT run, nombre1, nombre2, appaterno, apmaterno "
+						+ "FROM cliente "
+						+ "where run = ?";
+				
+		  ClienteModel lista = jdbcTemplate.queryForObject(query,
+				  (ResultSet rs, int rowNum) -> {
+			
+					//Crea objeto cliente
+					ClienteModel cliente = new ClienteModel();
+					cliente.setRun(rs.getString("run")); 
+					cliente.setNombre1(rs.getString("nombre1"));
+					cliente.setNombre2(rs.getString("nombre2"));
+					cliente.setAppaterno(rs.getString("appaterno"));
+					cliente.setApmaterno(rs.getString("apmaterno"));
+					
+					return cliente;
+				},
+				  new Object[] {run}	
+				); 
+
+		  return lista;
+		
+		}catch(Exception ex) {
+			System.out.println("Error: "+ ex.getMessage());
+			return null;
+		}		
+		
+	}
+	
+	
+	
 	@Override
 	public int consultarClientePorRun(String run) {
 		try {
@@ -36,7 +97,8 @@ public class ClienteDaoImp implements ClienteDaoInterface{
 		}
 		return 0;
 	}
-
+	
+	
 	@Override
 	public boolean insertarCliente(ClienteModel cliente) {
 		try {
@@ -74,5 +136,7 @@ public class ClienteDaoImp implements ClienteDaoInterface{
 		return true;
 		
 	}
+
+
 
 }

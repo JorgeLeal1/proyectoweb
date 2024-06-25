@@ -4,8 +4,10 @@ import java.util.List;
 import com.proyectoweb.web.model.ClienteModel;
 
 public interface ClienteDaoInterface {
-		
+
 	public List<ClienteModel> obtenerTodo();
+	
+	ClienteModel obtenerCliente(String run);
 
 	public int consultarClientePorRun(String run);
 

@@ -6,6 +6,8 @@ import com.proyectoweb.web.model.ClienteModel;
 public interface ClienteServiceInterface {
 
 	public List<ClienteModel> obtenerTodo();
+	
+	ClienteModel obtenerCliente(String run);
 
 	public int consultarClientePorRun(String run);
 

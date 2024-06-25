@@ -22,7 +22,7 @@ public class CuentaDaoImp implements CuentaDaoInterface {
 	public List<CuentaModel> obtenerTodoCuenta() {
 		try {
 		// selecciona todos los registros de la bd ordenado por run cliente
-		String query = "SELECT id, nroCuenta, alias, banco, saldo, run_cliente "
+		String query = "SELECT nroCuenta, alias, banco, saldo, run_cliente "
 						+ "FROM cuenta "
 						+ "order by run_cliente";
 				
@@ -35,7 +35,6 @@ public class CuentaDaoImp implements CuentaDaoInterface {
 					
 					CuentaModel cuenta = new CuentaModel();
 					
-					cuenta.setId(rs.getInt("id"));
 					cuenta.setNroCuenta(rs.getInt("nroCuenta"));
 					cuenta.setAlias(rs.getString("alias"));
 					cuenta.setBanco(rs.getString("banco"));
@@ -54,6 +53,38 @@ public class CuentaDaoImp implements CuentaDaoInterface {
 		
 	}
 
+	@Override
+	public CuentaModel obtenerCuenta(String run) {
+
+		try {
+		// selecciona todos los registros de la bd ordenado por run cliente
+		String query = "SELECT nroCuenta, alias, banco, saldo, run_cliente "
+						+ "FROM cuenta "
+						+ "where run_cliente = ?";
+				
+		CuentaModel lista = jdbcTemplate.queryForObject(query,
+				  (ResultSet rs, int rowNum) -> {
+			
+					//Crea objeto cuenta
+					CuentaModel cuenta = new CuentaModel();
+					cuenta.setNroCuenta(rs.getInt("nroCuenta"));
+					cuenta.setAlias(rs.getString("alias"));
+					cuenta.setBanco(rs.getString("banco"));
+					cuenta.setSaldo(rs.getDouble("saldo"));
+					
+					return cuenta;
+				},
+				  new Object[] {run}	
+				); 
+
+		  return lista;
+		
+		}catch(Exception ex) {
+			System.out.println("Error: "+ ex.getMessage());
+			return null;
+		}	
+	}
+	
 	@Override
 	public double consultarSaldoPorRun(String run) { 
 		try {
@@ -121,5 +152,7 @@ public class CuentaDaoImp implements CuentaDaoInterface {
 	public boolean eliminarCuenta(int id) {
 		return true;
 	}
+
+
 
 }

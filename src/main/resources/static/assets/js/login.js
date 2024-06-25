@@ -89,6 +89,8 @@ $(document).ready(function() {
 				+ "<p>Rut incorrecto!</p>"
 				+ "</div>";
 			$("#mensaje").html(alert);
+		
+			
 		}
 
 	}); //form_login

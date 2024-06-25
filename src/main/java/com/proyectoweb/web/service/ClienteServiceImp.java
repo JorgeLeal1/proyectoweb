@@ -24,6 +24,14 @@ public class ClienteServiceImp implements ClienteServiceInterface{
 	}
 
 	@Override
+	public ClienteModel obtenerCliente(String run) {
+		// TODO Auto-generated method stub
+		return clienteDaoInterface.obtenerCliente(run);
+	}
+
+	
+	
+	@Override
 	public int consultarClientePorRun(String run) {
 		// TODO Auto-generated method stub
 		return clienteDaoInterface.consultarClientePorRun(run);
@@ -46,6 +54,7 @@ public class ClienteServiceImp implements ClienteServiceInterface{
 		return clienteDaoInterface.eliminarCliente(run);
 		
 	}
+
 
 
 }

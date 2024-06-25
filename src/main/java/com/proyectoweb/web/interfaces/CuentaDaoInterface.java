@@ -7,6 +7,8 @@ import com.proyectoweb.web.model.CuentaModel;
 public interface CuentaDaoInterface {
 
 	public List<CuentaModel> obtenerTodoCuenta();
+	
+	CuentaModel obtenerCuenta(String run);
 
 	public double consultarSaldoPorRun(String run);
 

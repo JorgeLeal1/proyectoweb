@@ -2,7 +2,6 @@ package com.proyectoweb.web.model;
 
 public class CuentaModel {
 
-	private int id;
 	private int nroCuenta;
 	private String alias;
 	private String Banco;
@@ -12,13 +11,6 @@ public class CuentaModel {
 	
 	// Metodos GET, SET
 	// ---------------------------------------------
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
 	
 	public int getNroCuenta() {
 		return nroCuenta;

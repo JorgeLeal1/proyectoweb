@@ -40,10 +40,10 @@ $(document).ready(function() {
 
 		/* console.log('run:', inputRun); */
 		$("#mensaje").html("");
-		console.log(inputRun);
+		//console.log(inputRun);
 
 		if (validaRut(inputRun)) {
-			console.log('Valido');
+			//console.log('Valido');
 
 			$.ajax({
 				url: '/proyectoweb/consultarClientePorRun',

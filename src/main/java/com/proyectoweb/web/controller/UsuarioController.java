@@ -1,6 +1,11 @@
 package com.proyectoweb.web.controller;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -8,8 +13,10 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.ui.Model;
 
+import com.proyectoweb.web.interfaces.CuentaServiceInterface;
 import com.proyectoweb.web.interfaces.UsuarioServiceInterface;
 import com.proyectoweb.web.model.ClienteModel;
+import com.proyectoweb.web.model.CuentaModel;
 import com.proyectoweb.web.model.UsuarioModel;
 
 @RestController
@@ -18,9 +25,11 @@ import com.proyectoweb.web.model.UsuarioModel;
 public class UsuarioController {
 	
 	private UsuarioServiceInterface usuarioServiceInterface;
-
-	public UsuarioController(UsuarioServiceInterface usuarioServiceInterface) {
+	private CuentaServiceInterface cuentaServiceInterface;
+	
+	public UsuarioController(UsuarioServiceInterface usuarioServiceInterface,CuentaServiceInterface cuentaServiceInterface) {
 		this.usuarioServiceInterface = usuarioServiceInterface;
+		this.cuentaServiceInterface = cuentaServiceInterface;		
 	}
 	
 	//Consulta por ajax, para no recargar la pagina y poder validar por javascript
@@ -48,27 +57,83 @@ public class UsuarioController {
 		
 	 }
 	
-    @PostMapping("/login")
-    public ResponseEntity<String> procesarInicioSesion(@RequestParam("run") String run,
-                                                       @RequestParam("contrasena") String contrasena) {
-    	
-		ClienteModel cliente = new ClienteModel();
-		cliente.setRun(run);
-    	
-    	UsuarioModel usuario = new UsuarioModel();
-    	usuario.setCliente(cliente);
-		usuario.setContrasena(contrasena);
-		
-		Integer res= usuarioServiceInterface.validarLogin(usuario);
-		if(res > 0) {
-			//model.addAttribute("run", usuario.getRun());
-			//return "redirect:/proyectoweb/home";
-			 return ResponseEntity.ok("Inicio de sesión exitoso");
-		}
-		
-		return ResponseEntity.ok("Inicio de sesión exitoso");
-    }
+
 	
+    
+    @GetMapping("/obtenerCuenta/{Run}")
+	public Map<String, Object> obtenerCuenta( @PathVariable String Run){
+		
+		CuentaModel cuenta= cuentaServiceInterface.obtenerCuenta(Run);
+		
+        Map<String, Object> json = new HashMap<>();
+        //nroCuenta, alias, banco, saldo
+        json.put("nroCuenta", cuenta.getNroCuenta());
+        json.put("alias", cuenta.getAlias());
+        json.put("banco", cuenta.getBanco());
+        
+        //System.out.println("banco: "+cuenta.getBanco());
+        
+		return json;
+		
+	}
+    
+
+    /*
+	@PostMapping("/obtenerCuenta")//ruta home
+	public String obtenerCuenta( @RequestParam String Run, Model model){
+		CuentaModel cuenta= cuentaServiceInterface.obtenerCuenta(Run);
+		System.out.println("alias: "+cuenta.getAlias());
+		
+		//model.addAttribute("run",Run);  	
+		
+		return cuenta.getAlias(); 
+		
+			//ejemplo ajax 2
+		  							console.log("/proyectoweb/obtenerCuenta");
+							$.ajax({
+								url: '/proyectoweb/obtenerCuenta',
+						        type: "POST",
+						        data: { Run: inputRun },
+								success: function(response2) {
+									console.log("consultando");
+									console.log("cuenta "+response2);
+										
+								} ,           
+									error: function() {
+			                		console.error("Error al obtener datos");
+			           		 	}
+			
+							});//AJAX
+		 //fin ejemplo ajax
+		 
+		
+	}
+	*/
+
+	    @GetMapping("/datos")
+	    public ResponseEntity<Map<String, String>> obtenerDatos() {
+	        Map<String, String> datos = new HashMap<>();
+	        datos.put("mensaje", "Hola desde Spring Boot");
+	        return ResponseEntity.ok(datos);
+	    }
+	
+	
+    
+    /*
+    @PostMapping("/obtenerCuenta2")
+	public ResponseEntity<Map<String, String>> obtenerCuenta2( @RequestParam String Run){
+		
+		CuentaModel cuenta= cuentaServiceInterface.obtenerCuenta(Run);
+        Map<String, String> json = new HashMap<>();
+        json.put("getBanco", cuenta.getBanco());
+        json.put("getAlias", cuenta.getAlias());
+        System.out.println("banco: "+cuenta.getBanco());
+        
+		return ResponseEntity.ok(json);
+		
+	}
+	*/
+    
 	
 	/*
 	 * se debe reemplazar @RestController por @Controller

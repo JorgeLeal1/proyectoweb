@@ -73,7 +73,7 @@
 									value="<%out.print(request.getAttribute("saldo"));%>" readonly>
 							</div>
 						</div>
-						
+
 						<div class="form-group row">
 							<label for="inputBuscarContacto"
 								class="col-sm-2 col-form-label fw-bold">Contacto:</label>
@@ -125,89 +125,111 @@
 				aria-labelledby="exampleModalLabel" aria-hidden="true">
 				<div class="modal-dialog">
 					<div class="modal-content">
-					<form id="">
-						<div class="modal-header">
-						
-						<div class="text-center col-sm-11">
-							<h3 class="text-center col-sm-11" id="exampleModalLabel">Agregar cuenta tercero </h3>
-							<h6 class="text-start fst-italic col-sm-11" ><span
-									class="span_required">El usuario debe tener una cuenta en el sistema para ser ingresado a sus contactos.</span></h6>
+						<form id="">
+							<div class="modal-header">
+
+								<div class="text-center col-sm-11">
+									<h3 class="text-center col-sm-11" id="exampleModalLabel">Agregar
+										cuenta tercero</h3>
+									<h6 class="text-start fst-italic col-sm-11">
+										<span class="span_required">El usuario debe tener una
+											cuenta en el sistema para ser ingresado a sus contactos.</span>
+									</h6>
+								</div>
+								<button type="button" class="btn-close col-sm-1"
+									data-bs-dismiss="modal" aria-label="Close"></button>
 							</div>
-							<button type="button" class="btn-close col-sm-1" data-bs-dismiss="modal" aria-label="Close"></button>
-						</div>
 
 							<div class="modal-body">
-							
+
 								<div class="row mb-3">
 									<label for="run" class="col-sm-2 col-form-label">Run:<span
-									class="span_required">*</span></label>
+										class="span_required">*</span></label>
 									<div class="col-sm-5">
 										<input type="text" class="form-control" required="required"
-											id="run" name="run"  maxlength="12" placeholder="11111111-1">
+											id="run" name="run" maxlength="12" placeholder="11111111-1">
 									</div>
 									<div class="col-sm-5">
-										<button type="button" class="btn btn-primary" id="btn_consultar_run">Verificar run</button>
+										<button type="button" class="btn btn-primary"
+											id="btn_consultar_run">Verificar run</button>
 									</div>
-								</div>						
-						
+								</div>
+
 								<div class="row mb-3">
 									<label for="nombre1" class="col-sm-2 col-form-label">Nombres<span
-									class="span_required"></span></label>
+										class="span_required"></span></label>
 									<div class="col-sm-5">
-										<input type="text" class="form-control"  maxlength="45" placeholder="Nombre1" required="required" 
-											id="nombre1" name="nombre1" disabled>
+										<input type="text" class="form-control" maxlength="45"
+											placeholder="Nombre1" required="required" id="nombre1"
+											name="nombre1" disabled>
 									</div>
 									<div class="col-sm-5">
-										<input type="text" class="form-control"  maxlength="45" placeholder="Nombre2" required="required"
-											id="nombre2" name="nombre2" disabled>
-									</div>									
+										<input type="text" class="form-control" maxlength="45"
+											placeholder="Nombre2" required="required" id="nombre2"
+											name="nombre2" disabled>
+									</div>
 								</div>
 
 								<div class="row mb-3">
 									<label for="appaterno" class="col-sm-2 col-form-label">Apellidos<span
-									class="span_required"></span></label>
+										class="span_required"></span></label>
 									<div class="col-sm-5">
-										<input type="text" class="form-control"  maxlength="45" placeholder="Apellido Paterno" required="required"
+										<input type="text" class="form-control" maxlength="45"
+											placeholder="Apellido Paterno" required="required"
 											id="appaterno" name="appaterno" disabled>
 									</div>
 									<div class="col-sm-5">
-										<input type="text" class="form-control"  maxlength="45" placeholder="Apellido Paterno" required="required"
+										<input type="text" class="form-control" maxlength="45"
+											placeholder="Apellido Paterno" required="required"
 											id="apmaterno" name="apmaterno" disabled>
-									</div>									
+									</div>
 								</div>
 
 								<div class="row mb-3">
-									<label for="nrocuenta" class="col-sm-2 col-form-label">N° Cuenta<span
-									class="span_required"></span></label>
+									<label for="nrocuenta" class="col-sm-2 col-form-label">N°
+										Cuenta<span class="span_required"></span>
+									</label>
 									<div class="col-sm-10">
-										<input type="number" class="form-control"  max="20"  oninput="if(this.value.length > 20) this.value = this.value.slice(0, 20);" placeholder="Nrocuenta" min="1" required="required"
+										<input type="number" class="form-control" max="20"
+											oninput="if(this.value.length > 20) this.value = this.value.slice(0, 20);"
+											placeholder="Nrocuenta" min="1" required="required"
 											id="nrocuenta" name="nrocuenta" readonly>
 									</div>
 								</div>
 
 								<div class="row mb-3">
 									<label for="alias" class="col-sm-2 col-form-label">Alias<span
-									class="span_required"></span></label>
+										class="span_required"></span></label>
 									<div class="col-sm-10">
 										<input type="text" class="form-control" placeholder="Alias"
-											required="required"  maxlength="45" id="alias" name="alias" disabled>
+											required="required" maxlength="45" id="alias" name="alias"
+											disabled>
 									</div>
 								</div>
 
 								<div class="row mb-3">
 									<label for="banco" class="col-sm-2 col-form-label">Banco<span
-									class="span_required"></span></label>
+										class="span_required"></span></label>
 									<div class="col-sm-10">
-										<input type="text" class="form-control" placeholder="Banco" 
-											required="required"  maxlength="45" id="banco" name="banco" disabled>
+										<input type="text" class="form-control" placeholder="Banco"
+											required="required" maxlength="45" id="banco" name="banco"
+											disabled>
 									</div>
 								</div>
 
 							</div>
 							<div class="modal-footer">
-								<button type="button" class="btn btn-secondary"
-									data-bs-dismiss="modal">Close</button>
-								<button type="submit" class="btn btn-primary" id="btn_agregar_tercero">Agregar</button>
+								<div class="form-group row col-md-12" style="margin-bottom: 5px">
+									<div class="col-md-8">
+										<div id="mensaje"></div>
+									</div>
+									<div class="col-md-4">
+										<button type="button" class="btn btn-secondary "
+											data-bs-dismiss="modal">Close</button>
+										<button type="button" class="btn btn-primary"
+											id="btn_agregar_tercero">Agregar</button>
+									</div>
+								</div>
 							</div>
 						</form>
 
@@ -227,7 +249,7 @@
 		integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
 		crossorigin="anonymous"></script>
 	<script src="/assets/js/menu.js"></script>
-		<script src="/assets/js/transferir.js"></script>
+	<script src="/assets/js/transferir.js"></script>
 </body>
 
 </html>
