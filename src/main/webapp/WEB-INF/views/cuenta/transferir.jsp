@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 
+<%@page import="com.proyectoweb.web.model.CuentaTerceroModel"%>
+<%@page import="java.util.List"%>
+
 <!DOCTYPE html>
 <html>
 
@@ -21,6 +24,11 @@
 </head>
 
 <body>
+    <%
+	List<CuentaTerceroModel> tabla = (List) request.getAttribute("cuentaTercero");					
+	%>
+		
+
 	<nav class="navbar navbar-expand-lg navbar-light bg-light">
 		<div class="container-fluid">
 			<a class="navbar-brand" title="HOME" href="home">
@@ -102,16 +110,23 @@
 					<table class="table table-hover  table-striped" id="TablaSendMoney">
 						<thead class="table-light">
 							<tr>
-								<th scope="col">#</th>
 								<th scope="col">Nombre</th>
 								<th scope="col">N° Cuenta</th>
 								<th scope="col">Alias</th>
 								<th scope="col">Banco</th>
-								<th scope="col"></th>
 							</tr>
 						</thead>
 						<tbody>
-
+						<%
+							for (int i = 0; i < tabla.size(); i++) {
+								out.print("<tr>" + ""
+								+"<td>" + tabla.get(i).getCliente().getNombre1()+ " " + tabla.get(i).getCliente().getAppaterno() + "</td>"			
+								+"<td>" + tabla.get(i).getNroCuentaTercero()+ "</td>"		
+								+"<td>" + tabla.get(i).getCuenta().getAlias()+ "</td>"	
+								+"<td>" + tabla.get(i).getCuenta().getBanco()+ "</td>"								
+								+"</tr>");
+							}
+						%>
 						</tbody>
 					</table>
 					<div id="mensaje_sendmoney"></div>

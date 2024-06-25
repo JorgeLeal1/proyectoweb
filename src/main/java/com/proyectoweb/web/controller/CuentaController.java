@@ -1,29 +1,24 @@
 package com.proyectoweb.web.controller;
 
-import java.text.DecimalFormat;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.SessionAttributes;
-
 
 import com.proyectoweb.web.interfaces.ClienteServiceInterface;
 import com.proyectoweb.web.interfaces.CuentaServiceInterface;
+import com.proyectoweb.web.interfaces.CuentaTerceroServiceInterface;
 import com.proyectoweb.web.interfaces.UsuarioServiceInterface;
 import com.proyectoweb.web.model.ClienteModel;
 import com.proyectoweb.web.model.CuentaModel;
+import com.proyectoweb.web.model.CuentaTerceroModel;
 import com.proyectoweb.web.model.UsuarioModel;
 
 @Controller
@@ -34,16 +29,19 @@ public class CuentaController {
 	private CuentaServiceInterface cuentaServiceInterface;
 	private ClienteServiceInterface clienteServiceInterface;
 	private UsuarioServiceInterface usuarioServiceInterface;
+	private CuentaTerceroServiceInterface cuentaTerceroServiceInterface;
 	
 	public CuentaController(
 			CuentaServiceInterface cuentaServiceInterface, 
 			ClienteServiceInterface clienteServiceInterface, 
-			UsuarioServiceInterface usuarioServiceInterface 
+			UsuarioServiceInterface usuarioServiceInterface,
+			CuentaTerceroServiceInterface cuentaTerceroServiceInterface 
 			) {
 		
 		this.cuentaServiceInterface = cuentaServiceInterface;
 		this.clienteServiceInterface = clienteServiceInterface;
 		this.usuarioServiceInterface = usuarioServiceInterface;		
+		this.cuentaTerceroServiceInterface = cuentaTerceroServiceInterface;	
 	}
 	
 	@GetMapping("/registrar")
@@ -58,19 +56,10 @@ public class CuentaController {
 	@ResponseBody
 	@PostMapping("/registrarCuenta")//ruta home
 	public boolean registrar(
-			@RequestParam String Run,
-			@RequestParam String Nombre1, 
-			@RequestParam String Nombre2,
-			@RequestParam String Appaterno,
-			@RequestParam String Apmaterno,
-			
-			@RequestParam double Nrocuenta,
-			@RequestParam String Alias,
-			@RequestParam String Banco,
-			
-			@RequestParam String NombreUsuario,
-			@RequestParam String Email,
-			@RequestParam String Contrasena
+			@RequestParam String Run, @RequestParam String Nombre1, @RequestParam String Nombre2,
+			@RequestParam String Appaterno, @RequestParam String Apmaterno,
+			@RequestParam double Nrocuenta, @RequestParam String Alias, @RequestParam String Banco,
+			@RequestParam String NombreUsuario, @RequestParam String Email, @RequestParam String Contrasena
 			){
 		
 			int nrocuenta = (int) Nrocuenta; ;
@@ -137,7 +126,7 @@ public class CuentaController {
 		return ResponseEntity.ok("Inicio de sesión exitoso");
     }
     
-  
+	/*-----------------------------------------------------------------------------------------*/  
 	@GetMapping("/depositar")
 	public String depositar( Model model){
 		String run = (String) model.getAttribute("run");
@@ -145,6 +134,7 @@ public class CuentaController {
 		return "cuenta/realizarDepositos";
 	}
 	
+	//Metodo para aumentar el saldo
 	@PostMapping("/RealizarDeposito")
 	public String RealizarDeposito( @RequestParam Double saldo_actual,
 									@RequestParam Double saldo,
@@ -160,6 +150,7 @@ public class CuentaController {
 	}
 	
 	
+	/*-----------------------------------------------------------------------------------------*/
 	@GetMapping("/retirar")
 	public String retirar( Model model){
 		String run = (String) model.getAttribute("run");
@@ -167,6 +158,7 @@ public class CuentaController {
 		return "cuenta/realizarRetiro";
 	}
 	
+	//Metodo para disminuir el saldo
 	@PostMapping("/RealizarRetiro")
 	public String RealizarRetiro( @RequestParam Double saldo_actual,
 								  @RequestParam Double saldo,
@@ -181,12 +173,21 @@ public class CuentaController {
 			return "redirect:/proyectoweb/retirar";
 	}
 	
+	/*-----------------------------------------------------------------------------------------*/	
+	
 	@GetMapping("/transferir")
 	public String transferir( Model model){
 		String run = (String) model.getAttribute("run");
-		model.addAttribute("saldo",cuentaServiceInterface.consultarSaldoPorRun(run));  		
+		
+		CuentaModel cuentaModel = cuentaServiceInterface.obtenerCuenta(run);
+		
+		model.addAttribute("saldo",cuentaServiceInterface.consultarSaldoPorRun(run)); 
+		model.addAttribute("cuentaTercero",cuentaTerceroServiceInterface.obtenerTodoCuentaTercero(cuentaModel.getNroCuenta()));
+		
 		return "cuenta/transferir";
 	}
+	
+	/*-----------------------------------------------------------------------------------------*/
 	
 	
 	

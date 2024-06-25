@@ -24,6 +24,13 @@ public class CuentaServiceImp implements CuentaServiceInterface{
 	}
 
 	@Override
+	public CuentaModel obtenerCuentaCliente(String run) {
+		// TODO Auto-generated method stub
+		return cuentaDaoInterface.obtenerCuentaCliente(run);
+	}
+
+	
+	@Override
 	public CuentaModel obtenerCuenta(String run) {
 		// TODO Auto-generated method stub
 		CuentaModel cuenta = cuentaDaoInterface.obtenerCuenta(run);
@@ -63,6 +70,7 @@ public class CuentaServiceImp implements CuentaServiceInterface{
 		return cuentaDaoInterface.eliminarCuenta(id);
 		
 	}
+
 
 
 }

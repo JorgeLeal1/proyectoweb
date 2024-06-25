@@ -53,11 +53,15 @@ $(document).ready(function() {
 							$("#mensaje").html("");
 						
 							$.ajax({
-								url: '/proyectoweb/obtenerCuenta/16330225-k',
+								url: '/proyectoweb/obtenerCuentaCliente/'+inputRun,
 					            method: "GET",
-					            data: { Run: inputRun },
 								success: function(response) {
 									//console.log("getBanco "+response.getBanco);
+									
+									$("#nombre1").val(response.nombre1);
+									$("#nombre2").val(response.nombre2);
+									$("#appaterno").val(response.appaterno);
+									$("#apmaterno").val(response.apmaterno);
 									
 									$("#nrocuenta").val(response.nroCuenta);
 									$("#alias").val(response.alias);
@@ -68,33 +72,13 @@ $(document).ready(function() {
 			           		 	}
 			
 							});//AJAX
-							
-							$.ajax({
-								url: '/proyectoweb/obtenerCliente/16330225-k',
-					            method: "GET",
-					            data: { Run: inputRun },
-								success: function(response) {
-									//console.log("getBanco "+response.getBanco);
-									
-									$("#nombre1").val(response.nombre1);
-									$("#nombre2").val(response.nombre2);
-									$("#appaterno").val(response.appaterno);
-									$("#apmaterno").val(response.apmaterno);
-								} ,           
-									error: function() {
-			                		console.error("Error al obtener datos");
-			           		 	}
-			
-							});//AJAX							
-							
-							
 						
 						} else {
 							alert = "<div class='alert alert-danger alert-dismissible fade show  text-center' role='alert' style='padding-top: 0px; padding-bottom: 0px; '>"
 								+ "<p>Run ingresado No existe, favor ingrese otro !</p>"
 								+ "</div>";
 							//$("#mensaje").html(alert);
-							console.log(response);
+							//console.log(response);
 								
 						}
 					}
@@ -134,7 +118,7 @@ $(document).ready(function() {
 			console.log(inputNrocuenta.length);
 			
 			$.ajax({
-				url: '/proyectoweb/crearCliente',
+				url: '/proyectoweb/registrarCuentaTercero',
 				type: "POST",
 				data: { Run: inputRun, NroCuenta:inputNrocuenta },
 				success: function(response) {
@@ -144,8 +128,6 @@ $(document).ready(function() {
 					}
 				}
 			});
-			
-			
 			
 		}else{
 			alert = "<div class='alert alert-danger alert-dismissible fade show  text-center' role='alert' style='padding-top: 0px; padding-bottom: 0px; '>"

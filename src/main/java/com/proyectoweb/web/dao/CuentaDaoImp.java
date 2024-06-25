@@ -53,6 +53,49 @@ public class CuentaDaoImp implements CuentaDaoInterface {
 		
 	}
 
+
+	@Override
+	public CuentaModel obtenerCuentaCliente(String run) {
+		try {
+		// selecciona todos los registros de la bd ordenado por run cliente
+		String query = "SELECT * "
+						+ "FROM cuenta cu "
+						+ "inner join cliente cl "
+						+ "on cu.run_cliente = cl.run "
+						+ "where run_cliente = ?";
+				
+		CuentaModel lista = jdbcTemplate.queryForObject(query,
+				  (ResultSet rs, int rowNum) -> {
+			
+					//Crea objeto cuenta
+					CuentaModel cuenta = new CuentaModel();
+					cuenta.setNroCuenta(rs.getInt("nroCuenta"));
+					cuenta.setAlias(rs.getString("alias"));
+					cuenta.setBanco(rs.getString("banco"));
+					cuenta.setSaldo(rs.getDouble("saldo"));
+					
+					ClienteModel cliente = new ClienteModel();
+					cliente.setRun(rs.getString("run")); 
+					cliente.setNombre1(rs.getString("nombre1"));
+					cliente.setNombre2(rs.getString("nombre2"));
+					cliente.setAppaterno(rs.getString("appaterno"));
+					cliente.setApmaterno(rs.getString("apmaterno"));
+					
+					cuenta.setCliente(cliente);
+					
+					return cuenta;
+				},
+				  new Object[] {run}	
+				); 
+
+		  return lista;
+		
+		}catch(Exception ex) {
+			System.out.println("Error: "+ ex.getMessage());
+			return null;
+		}	
+	}
+	
 	@Override
 	public CuentaModel obtenerCuenta(String run) {
 
@@ -152,6 +195,7 @@ public class CuentaDaoImp implements CuentaDaoInterface {
 	public boolean eliminarCuenta(int id) {
 		return true;
 	}
+
 
 
 

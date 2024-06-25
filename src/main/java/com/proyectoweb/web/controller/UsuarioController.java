@@ -57,9 +57,6 @@ public class UsuarioController {
 		
 	 }
 	
-
-	
-    
     @GetMapping("/obtenerCuenta/{Run}")
 	public Map<String, Object> obtenerCuenta( @PathVariable String Run){
 		
@@ -72,6 +69,27 @@ public class UsuarioController {
         json.put("banco", cuenta.getBanco());
         
         //System.out.println("banco: "+cuenta.getBanco());
+        
+		return json;
+		
+	}
+    
+    @GetMapping("/obtenerCuentaCliente/{Run}")
+	public Map<String, Object> obtenerCuentaCliente( @PathVariable String Run){
+		
+		CuentaModel cuenta= cuentaServiceInterface.obtenerCuentaCliente(Run);
+		
+        Map<String, Object> json = new HashMap<>();
+        //nroCuenta, alias, banco, saldo
+        json.put("nroCuenta", cuenta.getNroCuenta());
+        json.put("alias", cuenta.getAlias());
+        json.put("banco", cuenta.getBanco());
+    
+        json.put("run", cuenta.getCliente().getRun());
+        json.put("nombre1", cuenta.getCliente().getNombre1());
+        json.put("nombre2", cuenta.getCliente().getNombre2());
+        json.put("appaterno", cuenta.getCliente().getAppaterno());
+        json.put("apmaterno", cuenta.getCliente().getApmaterno());
         
 		return json;
 		

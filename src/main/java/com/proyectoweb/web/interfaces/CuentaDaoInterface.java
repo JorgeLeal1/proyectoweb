@@ -8,6 +8,8 @@ public interface CuentaDaoInterface {
 
 	public List<CuentaModel> obtenerTodoCuenta();
 	
+	CuentaModel obtenerCuentaCliente(String run);
+	
 	CuentaModel obtenerCuenta(String run);
 
 	public double consultarSaldoPorRun(String run);
