@@ -19,6 +19,13 @@ public class CuentaTerceroServiceImp implements CuentaTerceroServiceInterface{
 	}
 	
 	@Override
+	public List<CuentaTerceroModel> obtenerTodoCuentaTerceroNombre(int Nrocuenta, String Nombre) {
+		// TODO Auto-generated method stub
+		return cuentaTerceroDaoInterface.obtenerTodoCuentaTerceroNombre(Nrocuenta, Nombre);
+	}
+
+	
+	@Override
 	public List<CuentaTerceroModel> obtenerTodoCuentaTercero(int Nrocuenta) {
 		return cuentaTerceroDaoInterface.obtenerTodoCuentaTercero(Nrocuenta);
 	}
@@ -32,6 +39,7 @@ public class CuentaTerceroServiceImp implements CuentaTerceroServiceInterface{
 	public boolean actualizarCuentaTercero(CuentaTerceroModel cuenta) {
 		return cuentaTerceroDaoInterface.actualizarCuentaTercero(cuenta);
 	}
+
 
 
 

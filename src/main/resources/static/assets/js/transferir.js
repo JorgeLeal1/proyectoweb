@@ -122,9 +122,12 @@ $(document).ready(function() {
 				type: "POST",
 				data: { Run: inputRun, NroCuenta:inputNrocuenta },
 				success: function(response) {
-					if (response > 0) {
+					if (response) {
 						//console.log(response);
-						$("#mensaje").html("");
+						alert = "<div class='alert alert-success alert-dismissible fade show  text-center' role='alert' style='padding-top: 0px; padding-bottom: 0px; '>"
+							+ "<p>Cuenta Ingresada!</p>"
+							+ "</div>";
+						$("#mensaje").html(alert);
 					}
 				}
 			});

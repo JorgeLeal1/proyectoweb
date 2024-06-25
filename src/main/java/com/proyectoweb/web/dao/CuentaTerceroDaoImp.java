@@ -65,6 +65,50 @@ public class CuentaTerceroDaoImp implements CuentaTerceroDaoInterface {
 	}
 
 	@Override
+	public List<CuentaTerceroModel> obtenerTodoCuentaTerceroNombre(int Nrocuenta, String Nombre) {
+		try {
+		// selecciona todos los registros de la bd ordenado por run cliente
+		String query = "select nombre1, appaterno, nroCuentaTercero, alias, banco "
+						+ "from cuentatercero cu  "
+						+ "inner join cliente cl "
+						+ "on cu.run_clienteCuentaTercero = cl.run "
+						+ "inner join cuenta c  "
+						+ "on c.nroCuenta = cu.nroCuentaTercero "
+						+ "where cu.nroCuentaOrigen = ? "
+						+ "and cl.nombre1 LIKE ?";
+				
+		  List<CuentaTerceroModel> lista = jdbcTemplate.query(query,
+				  (ResultSet rs, int rowNum) -> {
+			
+					CuentaTerceroModel cuentaTercero = new CuentaTerceroModel();
+					cuentaTercero.setNroCuentaTercero(rs.getInt("nroCuentaTercero"));
+						
+					ClienteModel cliente = new ClienteModel();
+					cliente.setNombre1(rs.getString("nombre1"));
+					cliente.setAppaterno(rs.getString("appaterno"));
+					
+			        CuentaModel cuenta = new CuentaModel();
+					cuenta.setAlias(rs.getString("alias"));
+					cuenta.setBanco(rs.getString("banco"));
+			        	
+					cuentaTercero.setCliente(cliente);
+					cuentaTercero.setCuenta(cuenta);
+					
+					return cuentaTercero;
+					
+				},
+				  new Object[] {Nrocuenta, Nombre}	  
+				); 
+
+		  return lista;
+		
+		}catch(Exception ex) {
+			System.out.println("Error: "+ ex.getMessage());
+			return new ArrayList<>();
+		}	
+	}
+	
+	@Override
 	public boolean insertarCuentaTercero(CuentaTerceroModel cuentaTercero) {
 		try {
 			//Inserta cliente 
@@ -90,5 +134,6 @@ public class CuentaTerceroDaoImp implements CuentaTerceroDaoInterface {
 		// TODO Auto-generated method stub
 		return false;
 	}
-	
+
+
 }

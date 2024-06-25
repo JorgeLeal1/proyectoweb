@@ -38,14 +38,18 @@ public class CuentaTerceroController {
 	/*
 	 * La anotación @ResponseBody indica que el valor devuelto debe ser tratado como el cuerpo de la respuesta HTTP. y no una vista
 	 */
+	
 	@ResponseBody
-	@PostMapping("/registrarCuentaTercero")//ruta home
+	@PostMapping("/registrarCuentaTercero")
 	public boolean registrar( @RequestParam String Run, @RequestParam int NroCuenta, Model model ){
 		
 			//Run usuario
 			String runUsuario = (String) model.getAttribute("run");
 			//nrocuenta Origen
 			CuentaModel cuentaModel = cuentaServiceInterface.obtenerCuenta(runUsuario);
+			
+			//**** falta validar si la cuenta que se quiere registrar esta en la BD
+			// se debe consultar si existe el Nrocuentatercero y el NrocuentaOrigen
 			
 			//datos cuentaTercero
 			CuentaTerceroModel cuentaTercero = new CuentaTerceroModel();
@@ -66,6 +70,24 @@ public class CuentaTerceroController {
 			}
 				
 		return false;
+
+	}
+	
+	@PostMapping("/buscarCuentaTercero")
+	public String buscarCuentaTercero(@RequestParam String inputBuscarContacto, Model model ){
+		
+			//Run usuario
+			String runUsuario = (String) model.getAttribute("run");
+			//nrocuenta Origen
+			CuentaModel cuentaModel = cuentaServiceInterface.obtenerCuenta(runUsuario);
+			int NroCuenta = cuentaModel.getNroCuenta();
+			
+			String Contacto2 = "%"+inputBuscarContacto+"%";
+
+			model.addAttribute("saldo",cuentaServiceInterface.consultarSaldoPorRun(runUsuario));  
+        	model.addAttribute("cuentaTercero", cuentaTerceroServiceInterface.obtenerTodoCuentaTerceroNombre(NroCuenta, Contacto2));
+        	
+        	return "cuenta/transferir";
 
 	}
 	

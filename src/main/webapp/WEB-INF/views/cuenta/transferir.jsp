@@ -70,7 +70,7 @@
 				</div>
 
 				<div class="card-body">
-					<form id="Form_sendmoney">
+					<form id="Form_BuscarContacto"  action="buscarCuentaTercero" method="post">
 						<div class="form-group row">
 
 							<label for="saldo_actual" class="col-sm-2 col-form-label fw-bold">Saldo
@@ -84,7 +84,7 @@
 
 						<div class="form-group row">
 							<label for="inputBuscarContacto"
-								class="col-sm-2 col-form-label fw-bold">Contacto:</label>
+								class="col-sm-2 col-form-label fw-bold">Nombre:</label>
 							<div class="col-sm-8">
 								<input type="text" class="form-control" id="inputBuscarContacto"
 									name="inputBuscarContacto" placeholder="Ingrese contacto"
@@ -104,8 +104,8 @@
 						id="btnAgregarContacto" data-bs-toggle="modal"
 						data-bs-target="#exampleModal">Agregar cuenta tercero</button>
 
-					<a href="sendmoney.html" class="btn btn-success"
-						style="float: right">Restaurar Listado</a>
+					<a href="transferir" class="btn btn-success"
+						style="float: right">Actualizar Listado</a>
 
 					<table class="table table-hover  table-striped" id="TablaSendMoney">
 						<thead class="table-light">
