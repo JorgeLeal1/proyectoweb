@@ -2,6 +2,7 @@ package com.proyectoweb.web.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -11,9 +12,12 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import com.proyectoweb.web.interfaces.ClienteServiceInterface;
 import com.proyectoweb.web.interfaces.CuentaServiceInterface;
 import com.proyectoweb.web.interfaces.CuentaTerceroServiceInterface;
+import com.proyectoweb.web.interfaces.TransaccionServiceInterface;
+import com.proyectoweb.web.interfaces.UsuarioServiceInterface;
 import com.proyectoweb.web.model.ClienteModel;
 import com.proyectoweb.web.model.CuentaModel;
 import com.proyectoweb.web.model.CuentaTerceroModel;
+import com.proyectoweb.web.model.UsuarioModel;
 
 @Controller
 @SessionAttributes({"run"})
@@ -22,17 +26,21 @@ public class CuentaTerceroController {
 	
 	private CuentaServiceInterface cuentaServiceInterface;
 	private ClienteServiceInterface clienteServiceInterface;
+	private UsuarioServiceInterface usuarioServiceInterface;
 	private CuentaTerceroServiceInterface cuentaTerceroServiceInterface;
+	private TransaccionServiceInterface transaccionServiceInterface;
 	
 	public CuentaTerceroController(
-			CuentaServiceInterface cuentaServiceInterface, 
-			ClienteServiceInterface clienteServiceInterface, 
-			CuentaTerceroServiceInterface cuentaTerceroServiceInterface 
+			CuentaServiceInterface cuentaServiceInterface,  ClienteServiceInterface clienteServiceInterface, 
+			UsuarioServiceInterface usuarioServiceInterface, CuentaTerceroServiceInterface cuentaTerceroServiceInterface,
+			TransaccionServiceInterface transaccionServiceInterface
 			) {
 		
 		this.cuentaServiceInterface = cuentaServiceInterface;
 		this.clienteServiceInterface = clienteServiceInterface;
-		this.cuentaTerceroServiceInterface = cuentaTerceroServiceInterface;		
+		this.usuarioServiceInterface = usuarioServiceInterface;		
+		this.cuentaTerceroServiceInterface = cuentaTerceroServiceInterface;	
+		this.transaccionServiceInterface = transaccionServiceInterface;
 	}
 	
 	/*
@@ -95,5 +103,22 @@ public class CuentaTerceroController {
         	return "cuenta/transferir";
 
 	}
+	
+	
+	@GetMapping("/movimientos")
+	public String movimientos(Model model ){
+		
+			//Run usuario
+			String runUsuario = (String) model.getAttribute("run");
+			UsuarioModel usuario = usuarioServiceInterface.consultarUsuarioPorRun(runUsuario);
+			//usuario.getId()
+			
+        	model.addAttribute("cuentaTercero", transaccionServiceInterface.obtenerPorId(usuario.getId()));
+        	
+        	return "cuenta/movimientos";
+
+	}
+	
+	
 	
 }

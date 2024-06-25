@@ -40,7 +40,7 @@
 					<a class="nav-link" aria-current="page" href="depositar">Depositar saldo</a> 
 					<a class="nav-link" aria-current="page" href="retirar">Retirar saldo</a> 
 					<a class="nav-link" aria-current="page" href=transferir>Transferir</a>						
-					<a class="nav-link" aria-current="page" href="viewAllCuentas">Listar Cuentas</a>
+					<a class="nav-link" aria-current="page" href="movimientos">Listar Cuentas</a>
 				
 				</div>
 			</div>

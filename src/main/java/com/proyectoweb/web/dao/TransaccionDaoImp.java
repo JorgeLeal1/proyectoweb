@@ -85,7 +85,7 @@ public class TransaccionDaoImp implements TransaccionDaoInterface{
 				+ "inner join moneda m "
 				+ "on t.idMoneda = m.id "
 				+ "inner join tipoTransaccion tt "
-				+ "on t.idTipoTransaccion = tt.idTipoTransaccion"
+				+ "on t.idTipoTransaccion = tt.idTipoTransaccion "
 				+ "where t.idUsuarioEnvia = ? or t.idUsuarioRecibe = ?";
 				
 		  List<TransaccionModel> lista = jdbcTemplate.query(query,

@@ -40,7 +40,7 @@
 					<a class="nav-link" aria-current="page" href="depositar">Depositar
 						saldo</a> <a class="nav-link" aria-current="page" href="retirar">Retirar
 						saldo</a> <a class="nav-link" aria-current="page" href=transferir>Transferir</a>
-					<a class="nav-link" aria-current="page" href="Movimientos">Movimientos</a>			
+					<a class="nav-link" aria-current="page" href="movimientos">Movimientos</a>			
 				</div>
 			</div>
 			<span class="navbar-text"> <a style="float: right;"
