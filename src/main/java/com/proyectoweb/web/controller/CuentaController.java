@@ -15,10 +15,14 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import com.proyectoweb.web.interfaces.ClienteServiceInterface;
 import com.proyectoweb.web.interfaces.CuentaServiceInterface;
 import com.proyectoweb.web.interfaces.CuentaTerceroServiceInterface;
+import com.proyectoweb.web.interfaces.TransaccionServiceInterface;
 import com.proyectoweb.web.interfaces.UsuarioServiceInterface;
 import com.proyectoweb.web.model.ClienteModel;
 import com.proyectoweb.web.model.CuentaModel;
 import com.proyectoweb.web.model.CuentaTerceroModel;
+import com.proyectoweb.web.model.MonedaModel;
+import com.proyectoweb.web.model.TipoTransaccionModel;
+import com.proyectoweb.web.model.TransaccionModel;
 import com.proyectoweb.web.model.UsuarioModel;
 
 @Controller
@@ -30,18 +34,19 @@ public class CuentaController {
 	private ClienteServiceInterface clienteServiceInterface;
 	private UsuarioServiceInterface usuarioServiceInterface;
 	private CuentaTerceroServiceInterface cuentaTerceroServiceInterface;
+	private TransaccionServiceInterface transaccionServiceInterface;
 	
 	public CuentaController(
-			CuentaServiceInterface cuentaServiceInterface, 
-			ClienteServiceInterface clienteServiceInterface, 
-			UsuarioServiceInterface usuarioServiceInterface,
-			CuentaTerceroServiceInterface cuentaTerceroServiceInterface 
+			CuentaServiceInterface cuentaServiceInterface,  ClienteServiceInterface clienteServiceInterface, 
+			UsuarioServiceInterface usuarioServiceInterface, CuentaTerceroServiceInterface cuentaTerceroServiceInterface,
+			TransaccionServiceInterface transaccionServiceInterface
 			) {
 		
 		this.cuentaServiceInterface = cuentaServiceInterface;
 		this.clienteServiceInterface = clienteServiceInterface;
 		this.usuarioServiceInterface = usuarioServiceInterface;		
 		this.cuentaTerceroServiceInterface = cuentaTerceroServiceInterface;	
+		this.transaccionServiceInterface = transaccionServiceInterface;
 	}
 	
 	@GetMapping("/registrar")
@@ -146,6 +151,31 @@ public class CuentaController {
 			double saldo_nuevo = saldo + saldo_actual;
 			cuentaServiceInterface.actualizarSaldoCuenta(run, saldo_nuevo);
 			
+			//Ingresamos el movimiento a la tabla transaccion
+			UsuarioModel usuario = usuarioServiceInterface.consultarUsuarioPorRun(run);
+			
+			TransaccionModel transaccion = new TransaccionModel();
+			transaccion.setSaldo(saldo);
+			
+			UsuarioModel usuarioEnv = new UsuarioModel();
+			usuarioEnv.setId(usuario.getId());
+			
+			UsuarioModel usuarioRec = new UsuarioModel();
+			usuarioRec.setId(usuario.getId());
+			
+			MonedaModel moneda = new MonedaModel();
+			moneda.setId(1); // id = 1, CLP
+			
+			TipoTransaccionModel tipotransaccion = new TipoTransaccionModel();
+			tipotransaccion.setIdTipoTransaccion(1); // id = 1, DEPOSITO
+			
+			transaccion.setUsuarioEnvia(usuarioEnv);
+			transaccion.setUsuarioRecibe(usuarioRec);
+			transaccion.setMoneda(moneda);
+			transaccion.setTipoTransaccion(tipotransaccion);
+			
+			transaccionServiceInterface.insertarTransaccion(transaccion);
+			
 		return "redirect:/proyectoweb/depositar";
 	}
 	
@@ -169,6 +199,33 @@ public class CuentaController {
 			
 			double saldo_nuevo = saldo_actual - saldo;
 			cuentaServiceInterface.actualizarSaldoCuenta(run, saldo_nuevo);
+			
+			
+			//Ingresamos el movimiento a la tabla transaccion
+			UsuarioModel usuario = usuarioServiceInterface.consultarUsuarioPorRun(run);
+			
+			TransaccionModel transaccion = new TransaccionModel();
+			transaccion.setSaldo(saldo);
+			
+			UsuarioModel usuarioEnv = new UsuarioModel();
+			usuarioEnv.setId(usuario.getId());
+			
+			UsuarioModel usuarioRec = new UsuarioModel();
+			usuarioRec.setId(usuario.getId());
+			
+			MonedaModel moneda = new MonedaModel();
+			moneda.setId(1); // id = 1, CLP
+			
+			TipoTransaccionModel tipotransaccion = new TipoTransaccionModel();
+			tipotransaccion.setIdTipoTransaccion(2); // id = 1, RETIRO
+			
+			transaccion.setUsuarioEnvia(usuarioEnv);
+			transaccion.setUsuarioRecibe(usuarioRec);
+			transaccion.setMoneda(moneda);
+			transaccion.setTipoTransaccion(tipotransaccion);
+			
+			transaccionServiceInterface.insertarTransaccion(transaccion);
+			
 			
 			return "redirect:/proyectoweb/retirar";
 	}

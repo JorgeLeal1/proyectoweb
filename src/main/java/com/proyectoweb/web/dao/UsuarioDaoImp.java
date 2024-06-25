@@ -1,5 +1,6 @@
 package com.proyectoweb.web.dao;
 
+import java.sql.ResultSet;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +8,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.proyectoweb.web.interfaces.UsuarioDaoInterface;
+import com.proyectoweb.web.model.ClienteModel;
 import com.proyectoweb.web.model.UsuarioModel;
 
 @Repository
@@ -41,9 +43,35 @@ public class UsuarioDaoImp implements UsuarioDaoInterface{
 	}
 
 	@Override
-	public int consultarUsuarioPorRun(String run) {
-		// TODO Auto-generated method stub
-		return 0;
+	public UsuarioModel consultarUsuarioPorRun(String run) {
+		try {
+			
+		// selecciona todos los registros de la bd ordenado por run cliente
+		String query = "SELECT id, nombre, correo_electronico, contrasena, run_cliente "
+						+ "FROM usuario "
+						+ "where run_cliente = ?";
+				
+		UsuarioModel lista = jdbcTemplate.queryForObject(query,
+				  (ResultSet rs, int rowNum) -> {
+			
+					//Crea objeto usuario
+					UsuarioModel usuario = new UsuarioModel();
+					usuario.setId(rs.getInt("id")); 
+					usuario.setNombre(rs.getString("nombre"));
+					usuario.setCorreo_electronico(rs.getString("correo_electronico"));
+					usuario.setContrasena(rs.getString("contrasena"));
+
+					return usuario;
+				},
+				  new Object[] {run}	
+				); 
+
+		  return lista;
+		
+		}catch(Exception ex) {
+			System.out.println("Error: "+ ex.getMessage());
+			return null;
+		}	
 	}
 
 	@Override

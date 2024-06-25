@@ -9,12 +9,12 @@ public class UsuarioModel {
 
 	private ClienteModel cliente;
 	
-	public Integer getUser_id() {
+	public int getId() {
 		return id;
 	}
 
-	public void setUser_id(Integer user_id) {
-		this.id = user_id;
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public String getNombre() {

@@ -10,7 +10,7 @@ public interface UsuarioServiceInterface {
 	
 	public List<UsuarioModel> obtenerTodo();
 
-	public int consultarUsuarioPorRun(String run);
+	public UsuarioModel consultarUsuarioPorRun(String run);
 
 	public boolean insertarUsuario(UsuarioModel usuario);
 

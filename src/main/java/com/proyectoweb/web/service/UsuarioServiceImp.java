@@ -30,7 +30,7 @@ public class UsuarioServiceImp implements UsuarioServiceInterface{
 	}
 
 	@Override
-	public int consultarUsuarioPorRun(String run) {
+	public UsuarioModel consultarUsuarioPorRun(String run) {
 		// TODO Auto-generated method stub
 		return usuarioDaoInterface.consultarUsuarioPorRun(run);
 	}
