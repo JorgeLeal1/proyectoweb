@@ -67,7 +67,6 @@ public class CuentaTerceroDaoImp implements CuentaTerceroDaoInterface {
 	@Override
 	public List<CuentaTerceroModel> obtenerTodoCuentaTerceroNombre(int Nrocuenta, String Nombre) {
 		try {
-		// selecciona todos los registros de la bd ordenado por run cliente
 		String query = "select nombre1, appaterno, nroCuentaTercero, alias, banco "
 						+ "from cuentatercero cu  "
 						+ "inner join cliente cl "
@@ -109,6 +108,27 @@ public class CuentaTerceroDaoImp implements CuentaTerceroDaoInterface {
 	}
 	
 	@Override
+	public int verificarCuentaTercero(CuentaTerceroModel cuenta) {
+		try {
+			
+			String query = "select count(*) "
+							+ "from cuentatercero cu  "
+							+ "inner join cliente cl "
+							+ "on cu.run_clienteCuentaTercero = cl.run "
+							+ "inner join cuenta c  "
+							+ "on c.nroCuenta = cu.nroCuentaTercero "
+							+ "where cu.nroCuentaTercero= ? "
+							+ "and cu.nroCuentaOrigen = ? ";
+			
+	        Integer rowCounts = jdbcTemplate.queryForObject(query, Integer.class, cuenta.getNroCuentaTercero(), cuenta.getCuenta().getNroCuenta() );
+	        return rowCounts; // retorna la cantidad de coincidencias 0:sino hay o >0: cuando existe
+		}catch(Exception ex) {
+			System.out.println("Error: "+ ex.getMessage());
+		}
+		return 0;
+	}
+	
+	@Override
 	public boolean insertarCuentaTercero(CuentaTerceroModel cuentaTercero) {
 		try {
 			//Inserta cliente 
@@ -134,6 +154,8 @@ public class CuentaTerceroDaoImp implements CuentaTerceroDaoInterface {
 		// TODO Auto-generated method stub
 		return false;
 	}
+
+
 
 
 }

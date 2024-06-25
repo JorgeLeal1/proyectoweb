@@ -8,6 +8,8 @@ public interface CuentaTerceroDaoInterface {
 	public List<CuentaTerceroModel> obtenerTodoCuentaTercero(int Nrocuenta);
 	
 	public List<CuentaTerceroModel> obtenerTodoCuentaTerceroNombre(int Nrocuenta, String Nombre);
+	
+	public int verificarCuentaTercero(CuentaTerceroModel cuenta);
 
 	public boolean insertarCuentaTercero(CuentaTerceroModel cuenta);
 	

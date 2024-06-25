@@ -41,7 +41,7 @@ public class CuentaTerceroController {
 	
 	@ResponseBody
 	@PostMapping("/registrarCuentaTercero")
-	public boolean registrar( @RequestParam String Run, @RequestParam int NroCuenta, Model model ){
+	public String registrar( @RequestParam String Run, @RequestParam int NroCuenta, Model model ){
 		
 			//Run usuario
 			String runUsuario = (String) model.getAttribute("run");
@@ -50,6 +50,7 @@ public class CuentaTerceroController {
 			
 			//**** falta validar si la cuenta que se quiere registrar esta en la BD
 			// se debe consultar si existe el Nrocuentatercero y el NrocuentaOrigen
+			
 			
 			//datos cuentaTercero
 			CuentaTerceroModel cuentaTercero = new CuentaTerceroModel();
@@ -65,11 +66,15 @@ public class CuentaTerceroController {
         	cuentaTercero.setCliente(cliente);
         	cuentaTercero.setCuenta(cuenta);
         	
-			if(cuentaTerceroServiceInterface.insertarCuentaTercero(cuentaTercero)) {
-				return true;
-			}
+        	if(cuentaTerceroServiceInterface.verificarCuentaTercero(cuentaTercero) > 0) {
+        		return "La cuenta ya se encuentra ingresada en sus contactos!";
+        	}else {
+				if(cuentaTerceroServiceInterface.insertarCuentaTercero(cuentaTercero)) {
+					return "Cuenta registrada correctamente!";
+				}
+        	}
 				
-		return false;
+		return "";
 
 	}
 	

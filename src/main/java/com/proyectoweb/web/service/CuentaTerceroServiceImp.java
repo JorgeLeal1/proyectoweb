@@ -24,12 +24,17 @@ public class CuentaTerceroServiceImp implements CuentaTerceroServiceInterface{
 		return cuentaTerceroDaoInterface.obtenerTodoCuentaTerceroNombre(Nrocuenta, Nombre);
 	}
 
-	
 	@Override
 	public List<CuentaTerceroModel> obtenerTodoCuentaTercero(int Nrocuenta) {
 		return cuentaTerceroDaoInterface.obtenerTodoCuentaTercero(Nrocuenta);
 	}
 
+	@Override
+	public int verificarCuentaTercero(CuentaTerceroModel cuenta) {
+		return cuentaTerceroDaoInterface.verificarCuentaTercero(cuenta);
+	}
+
+	
 	@Override
 	public boolean insertarCuentaTercero(CuentaTerceroModel cuenta) {
 		return cuentaTerceroDaoInterface.insertarCuentaTercero(cuenta);

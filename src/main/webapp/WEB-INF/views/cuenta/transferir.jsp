@@ -87,7 +87,7 @@
 								class="col-sm-2 col-form-label fw-bold">Nombre:</label>
 							<div class="col-sm-8">
 								<input type="text" class="form-control" id="inputBuscarContacto"
-									name="inputBuscarContacto" placeholder="Ingrese contacto"
+									name="inputBuscarContacto" maxlength="45" placeholder="Ingrese nombre"
 									required="required">
 							</div>
 							<div class="col-sm-2">
