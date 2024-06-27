@@ -28,7 +28,6 @@
 	List<CuentaTerceroModel> tabla = (List) request.getAttribute("cuentaTercero");					
 	%>
 		
-
 	<nav class="navbar navbar-expand-lg navbar-light bg-light">
 		<div class="container-fluid">
 			<a class="navbar-brand" title="HOME" href="home">
@@ -71,7 +70,7 @@
 
 				<div class="card-body">
 					<form id="Form_BuscarContacto"  action="buscarCuentaTercero" method="post">
-						<div class="form-group row">
+						<div class="form-group row" style="margin-bottom: 5px;">
 
 							<label for="saldo_actual" class="col-sm-2 col-form-label fw-bold">Saldo
 								actual:</label>
@@ -107,9 +106,10 @@
 					<a href="transferir" class="btn btn-success"
 						style="float: right">Actualizar Listado</a>
 
-					<table class="table table-hover  table-striped" id="TablaSendMoney">
+					<table class="table table-hover  table-striped" id="TablaTercero">
 						<thead class="table-light">
 							<tr>
+								<th scope="col">Run</th>
 								<th scope="col">Nombre</th>
 								<th scope="col">N° Cuenta</th>
 								<th scope="col">Alias</th>
@@ -120,6 +120,7 @@
 						<%
 							for (int i = 0; i < tabla.size(); i++) {
 								out.print("<tr>" + ""
+								+"<td>" + tabla.get(i).getCliente().getRun()+ "</td>"	
 								+"<td>" + tabla.get(i).getCliente().getNombre1()+ " " + tabla.get(i).getCliente().getAppaterno() + "</td>"			
 								+"<td>" + tabla.get(i).getNroCuentaTercero()+ "</td>"		
 								+"<td>" + tabla.get(i).getCuenta().getAlias()+ "</td>"	
@@ -135,12 +136,12 @@
 			</div>
 			<!-- card-->
 
-			<!-- Modal -->
+			<!-- MODAL CUENTA TERCERO ------------------------------------------------------------------------------>
 			<div class="modal fade modal-lg" id="exampleModal" tablogin="-1"
 				aria-labelledby="exampleModalLabel" aria-hidden="true">
 				<div class="modal-dialog">
 					<div class="modal-content">
-						<form id="">
+						<form id="AgregarCtaTercero">
 							<div class="modal-header">
 
 								<div class="text-center col-sm-11">
@@ -156,6 +157,12 @@
 							</div>
 
 							<div class="modal-body">
+
+								<div class="row mb-3">
+									<div class="col-sm-5">
+										<input type="text" class="form-control" id="runUsuario" name="runUsuario" value="${run}" readonly hidden>
+									</div>
+								</div>
 
 								<div class="row mb-3">
 									<label for="run" class="col-sm-2 col-form-label">Run:<span
@@ -251,7 +258,79 @@
 					</div>
 				</div>
 			</div>
-			<!-- Modal -->
+			<!-- Modal --------------------------------------------------------------------------------------------->
+
+			<!-- MODAL TRANSFERIR ------------------------------------------------------------------------------>
+			<div class="modal fade modal-lg" id="transferirModal" tablogin="-1"
+				aria-labelledby="transferirModal" aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<form id="transferirSaldo">
+						
+							<div class="modal-header">
+								<div class="text-center col-sm-11">
+									<h3 class="text-center col-sm-11" id="exampleModalLabel">TRANSFERIR MONTO</h3>
+								</div>
+								<button type="button" class="btn-close col-sm-1"
+									data-bs-dismiss="modal" aria-label="Close"></button>
+							</div>
+
+							<div class="modal-body">
+								<div class="row mb-3">
+									<label for="Trun" class="col-sm-2 col-form-label">Run</label>
+									<div class="col-sm-10">
+										<input type="text" class="form-control" id="Trun" name="Trun" readonly>
+									</div>
+								</div>
+
+								<div class="row mb-3">
+									<label for="nrocuenta" class="col-sm-2 col-form-label">N°
+										Cuenta<span class="span_required"></span>
+									</label>
+									<div class="col-sm-10">
+										<input type="number" class="form-control" id="Tnrocuenta" name="Tnrocuenta" readonly>
+									</div>
+								</div>
+
+								<div class="row mb-3">
+									<label for="Tsaldo_actual" class="col-sm-2 col-form-label">Saldo actual:</label>
+									<div class="col-sm-10">
+										<input type="number" class="form-control" id="Tsaldo_actual" name="Tsaldo_actual" readonly>
+									</div>
+								</div>
+
+								<div class="row mb-3">
+									<label for="Tsaldo" class="col-sm-2 col-form-label">Monto<span class="span_required">*</span>
+									</label>
+									<div class="col-sm-10">
+										<input type="number" class="form-control" 
+											placeholder="Ingresar Monto" min="1" required="required" id="Tsaldo" name="Tsaldo">
+									</div>
+								</div>
+							</div>
+							
+							<div class="modal-footer">
+								<div class="form-group row col-md-12" style="margin-bottom: 5px">
+									<div class="col-md-8">
+										<div id="TranferirSaldoMensaje"></div>
+									</div>
+									<div class="col-md-4">
+										<button type="button" class="btn btn-secondary "
+											data-bs-dismiss="modal">Close</button>
+										<button type="submit" class="btn btn-primary"
+											id="btn_agregar_tercero">Transferir</button>
+									</div>
+								</div>
+							</div>
+						</form>
+
+					</div>
+				</div>
+			</div>
+			<!-- Modal --------------------------------------------------------------------------------------------->
+
+
+
 
 		</div>
 		<!-- container-->

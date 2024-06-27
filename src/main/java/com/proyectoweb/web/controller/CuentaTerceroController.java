@@ -54,32 +54,39 @@ public class CuentaTerceroController {
 			//Run usuario
 			String runUsuario = (String) model.getAttribute("run");
 			//nrocuenta Origen
-			CuentaModel cuentaModel = cuentaServiceInterface.obtenerCuenta(runUsuario);
+			CuentaModel cuentaOrigenModel = cuentaServiceInterface.obtenerCuenta(runUsuario);
+					
+        	CuentaModel cuentaOrigen = new CuentaModel();
+        	cuentaOrigen.setNroCuenta(cuentaOrigenModel.getNroCuenta());
 			
-			//**** falta validar si la cuenta que se quiere registrar esta en la BD
-			// se debe consultar si existe el Nrocuentatercero y el NrocuentaOrigen
-			
-			
+			ClienteModel clienteOrigen= new ClienteModel();
+			clienteOrigen.setRun(runUsuario);
+        	
+			///////////////////////////////////////////////////
 			//datos cuentaTercero
 			CuentaTerceroModel cuentaTercero = new CuentaTerceroModel();
 			cuentaTercero.setNroCuentaTercero(NroCuenta);
 			
-			ClienteModel cliente = new ClienteModel();
-			cliente.setRun(Run);
+			ClienteModel clienteTercero = new ClienteModel();
+			clienteTercero.setRun(Run);
 			
-			///////////////////////////////////////////////////
-        	CuentaModel cuenta = new CuentaModel();
-        	cuenta.setNroCuenta(cuentaModel.getNroCuenta());
+
+        	cuentaTercero.setCliente(clienteTercero);
+        	cuentaTercero.setCuenta(cuentaOrigen);
+        	cuentaTercero.setClienteOrigen(clienteOrigen);
         	
-        	cuentaTercero.setCliente(cliente);
-        	cuentaTercero.setCuenta(cuenta);
-        	
-        	if(cuentaTerceroServiceInterface.verificarCuentaTercero(cuentaTercero) > 0) {
-        		return "La cuenta ya se encuentra ingresada en sus contactos!";
-        	}else {
-				if(cuentaTerceroServiceInterface.insertarCuentaTercero(cuentaTercero)) {
-					return "Cuenta registrada correctamente!";
-				}
+            if (runUsuario.equals(Run)) {
+            	return "El usuario no puede ser creado en cuentaTercero!";
+
+            } else {
+            	//verifica que la cuenta ingresada solo exista 1 vez por el run logeado
+	        	if(cuentaTerceroServiceInterface.verificarCuentaTercero(cuentaTercero) > 0) {
+	        		return "La cuenta ya se encuentra ingresada en sus contactos!";
+	        	}else {
+					if(cuentaTerceroServiceInterface.insertarCuentaTercero(cuentaTercero)) {
+						return "Cuenta registrada correctamente!";
+					}
+	        	}
         	}
 				
 		return "";
@@ -104,7 +111,6 @@ public class CuentaTerceroController {
 
 	}
 	
-	
 	@GetMapping("/movimientos")
 	public String movimientos(Model model ){
 		
@@ -116,9 +122,7 @@ public class CuentaTerceroController {
         	model.addAttribute("cuentaTercero", transaccionServiceInterface.obtenerPorId(usuario.getId()));
         	
         	return "cuenta/movimientos";
-
 	}
-	
 	
 	
 }

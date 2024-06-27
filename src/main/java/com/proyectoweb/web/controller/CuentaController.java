@@ -226,7 +226,6 @@ public class CuentaController {
 			
 			transaccionServiceInterface.insertarTransaccion(transaccion);
 			
-			
 			return "redirect:/proyectoweb/retirar";
 	}
 	
@@ -246,33 +245,54 @@ public class CuentaController {
 	
 	/*-----------------------------------------------------------------------------------------*/
 	
+	@ResponseBody
+	@PostMapping("/TranferirSaldo")
+	public String buscarCuentaTercero(
+									@RequestParam String Run, 
+									@RequestParam Double Saldo, 
+									Model model ){
+		
+		//SE ACTUALIZA CUENTA DEL USUARIO
+		String run_usuario = (String) model.getAttribute("run");
+		double saldo_actual_usuario = cuentaServiceInterface.consultarSaldoPorRun(run_usuario);  
+		
+		double saldo_nuevo_usuario = saldo_actual_usuario - Saldo;
+		cuentaServiceInterface.actualizarSaldoCuenta(run_usuario, saldo_nuevo_usuario);
+
+		
+		//SE ACTUALIZA CUENTA TERCERO
+			//obtenemos el saldo actual de la cuenta tercero
+			double saldo_actual = cuentaServiceInterface.consultarSaldoPorRun(Run);  		
+			double saldo_nuevo = Saldo + saldo_actual;
+			cuentaServiceInterface.actualizarSaldoCuenta(Run, saldo_nuevo);
+		
+		//Ingresamos el movimiento a la tabla transaccion
+		UsuarioModel usuario = usuarioServiceInterface.consultarUsuarioPorRun(Run);
+		
+		TransaccionModel transaccion = new TransaccionModel();
+		transaccion.setSaldo(Saldo);
+		
+		UsuarioModel usuarioEnv = new UsuarioModel();
+		usuarioEnv.setId(usuario.getId());
+		
+		UsuarioModel usuarioRec = new UsuarioModel();
+		usuarioRec.setId(usuario.getId());
+		
+		MonedaModel moneda = new MonedaModel();
+		moneda.setId(1); // id = 1, CLP
+		
+		TipoTransaccionModel tipotransaccion = new TipoTransaccionModel();
+		tipotransaccion.setIdTipoTransaccion(3); // id =3, TRANSFERENCIA
+		
+		transaccion.setUsuarioEnvia(usuarioEnv);
+		transaccion.setUsuarioRecibe(usuarioRec);
+		transaccion.setMoneda(moneda);
+		transaccion.setTipoTransaccion(tipotransaccion);
+		
+		transaccionServiceInterface.insertarTransaccion(transaccion);
+    	return " ";
+
+	}	
 	
-	
-	
-	/*
-	@GetMapping("/transacciones")//ruta home
-	public String viewAllCuentas( Model model){
-		
-		//obtiene de la variable de session el run del usuario logeado
-		String run = (String) model.getAttribute("run");
-		//System.out.println(run);
-		
-		//List<Cuenta> lista = dao.obtenerTodoCuenta();
-		
-		
-			for (int i = 0; i < lista.size(); i++) {
-				System.out.print("<tr>" + "" + "<td>" + lista.get(i).getId() + "</td>" + "" + "<td>" + lista.get(i).getTitular().getRun() + "</td>" + ""
-						+ "<td>" + lista.get(i).getNroCuenta() + "</td>" + "" + "<td>" + lista.get(i).getAlias() + "</td>" + ""
-						+ "<td>" + lista.get(i).getBanco() + "</td>" + "" + "<td>" + lista.get(i).getSaldo() + "</td></tr>");
-			}
-		
-		
-		model.addAttribute("mensaje","prueba");
-		model.addAttribute("lista",dao.obtenerTodoCuenta()); 
-		
-		return "cuenta/viewAll";// retorna a la vista a home
-		
-	}
-	*/
 
 }

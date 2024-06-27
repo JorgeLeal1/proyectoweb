@@ -24,7 +24,7 @@ public class CuentaTerceroDaoImp implements CuentaTerceroDaoInterface {
 	public List<CuentaTerceroModel> obtenerTodoCuentaTercero(int NroCuenta) {
 		try {
 		// selecciona todos los registros de la bd ordenado por run cliente
-		String query = "select nombre1, appaterno, nroCuentaTercero, alias, banco "
+		String query = "select run, nombre1, appaterno, nroCuentaTercero, alias, banco "
 						+ "from cuentatercero cu  "
 						+ "inner join cliente cl "
 						+ "on cu.run_clienteCuentaTercero = cl.run "
@@ -39,6 +39,7 @@ public class CuentaTerceroDaoImp implements CuentaTerceroDaoInterface {
 					cuentaTercero.setNroCuentaTercero(rs.getInt("nroCuentaTercero"));
 						
 					ClienteModel cliente = new ClienteModel();
+					cliente.setRun(rs.getString("run"));
 					cliente.setNombre1(rs.getString("nombre1"));
 					cliente.setAppaterno(rs.getString("appaterno"));
 					
@@ -67,11 +68,11 @@ public class CuentaTerceroDaoImp implements CuentaTerceroDaoInterface {
 	@Override
 	public List<CuentaTerceroModel> obtenerTodoCuentaTerceroNombre(int Nrocuenta, String Nombre) {
 		try {
-		String query = "select nombre1, appaterno, nroCuentaTercero, alias, banco "
+		String query = "select run, nombre1, appaterno, nroCuentaTercero, alias, banco "
 						+ "from cuentatercero cu  "
 						+ "inner join cliente cl "
 						+ "on cu.run_clienteCuentaTercero = cl.run "
-						+ "inner join cuenta c  "
+						+ "inner join cuenta c "
 						+ "on c.nroCuenta = cu.nroCuentaTercero "
 						+ "where cu.nroCuentaOrigen = ? "
 						+ "and cl.nombre1 LIKE ?";
@@ -83,6 +84,7 @@ public class CuentaTerceroDaoImp implements CuentaTerceroDaoInterface {
 					cuentaTercero.setNroCuentaTercero(rs.getInt("nroCuentaTercero"));
 						
 					ClienteModel cliente = new ClienteModel();
+					cliente.setRun(rs.getString("run"));
 					cliente.setNombre1(rs.getString("nombre1"));
 					cliente.setAppaterno(rs.getString("appaterno"));
 					
@@ -117,10 +119,12 @@ public class CuentaTerceroDaoImp implements CuentaTerceroDaoInterface {
 							+ "on cu.run_clienteCuentaTercero = cl.run "
 							+ "inner join cuenta c  "
 							+ "on c.nroCuenta = cu.nroCuentaTercero "
-							+ "where cu.nroCuentaTercero= ? "
-							+ "and cu.nroCuentaOrigen = ? ";
+							+ "where cu.run_clienteCuentaTercero= ? "
+							+ "and cu.run_clienteOrigen = ? "
+							+ "and cu.nroCuentaTercero= ? "
+							+ "and cu.nroCuentaOrigen = ? ";			
 			
-	        Integer rowCounts = jdbcTemplate.queryForObject(query, Integer.class, cuenta.getNroCuentaTercero(), cuenta.getCuenta().getNroCuenta() );
+	        Integer rowCounts = jdbcTemplate.queryForObject(query, Integer.class, cuenta.getCliente().getRun(), cuenta.getClienteOrigen().getRun() ,cuenta.getNroCuentaTercero(), cuenta.getCuenta().getNroCuenta() );
 	        return rowCounts; // retorna la cantidad de coincidencias 0:sino hay o >0: cuando existe
 		}catch(Exception ex) {
 			System.out.println("Error: "+ ex.getMessage());
@@ -132,13 +136,14 @@ public class CuentaTerceroDaoImp implements CuentaTerceroDaoInterface {
 	public boolean insertarCuentaTercero(CuentaTerceroModel cuentaTercero) {
 		try {
 			//Inserta cliente 
-			String query = "INSERT INTO cuentatercero (nroCuentaTercero, run_clienteCuentaTercero, nroCuentaOrigen) "
-							+ "VALUES (?, ?, ?)";
+			String query = "INSERT INTO cuentatercero (nroCuentaTercero, run_clienteCuentaTercero, nroCuentaOrigen, run_clienteOrigen) "
+							+ "VALUES (?, ?, ?, ?)";
 	
 			jdbcTemplate.update(query,
 					cuentaTercero.getNroCuentaTercero(),
 					cuentaTercero.getCliente().getRun(),
-					cuentaTercero.getCuenta().getNroCuenta()
+					cuentaTercero.getCuenta().getNroCuenta(),
+					cuentaTercero.getClienteOrigen().getRun()
 			);
 			//System.out.println("CuentaTercero creado correctamente.");
 			return true;

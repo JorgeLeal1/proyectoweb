@@ -4,10 +4,11 @@ public class CuentaTerceroModel {
 
 	private int idCuentaTercero;
 	private int nroCuentaTercero;	
-
 	private ClienteModel cliente;
 	private CuentaModel cuenta;
+	private ClienteModel clienteOrigen;
 	
+
 	public int getIdCuentaTercero() {
 		return idCuentaTercero;
 	}
@@ -33,7 +34,12 @@ public class CuentaTerceroModel {
 		this.cuenta = cuenta;
 	}
 
-	
+	public ClienteModel getClienteOrigen() {
+		return clienteOrigen;
+	}
+	public void setClienteOrigen(ClienteModel clienteOrigen) {
+		this.clienteOrigen = clienteOrigen;
+	}
 	
 	
 	
