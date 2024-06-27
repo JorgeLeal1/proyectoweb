@@ -25,7 +25,7 @@
 
 <body>
     <%
-	List<TransaccionModel> tabla = (List) request.getAttribute("cuentaTercero");					
+	List<TransaccionModel> tabla = (List) request.getAttribute("movimientos");					
 	%>
 	<nav class="navbar navbar-expand-lg navbar-light bg-light">
 		<div class="container-fluid">
@@ -70,6 +70,7 @@
 								<th scope="col">Usuario Envia</th>
 								<th scope="col">Usuario Recibe</th>
 								<th scope="col">Saldo</th>
+								<th scope="col">Fecha</th>
 								<th scope="col">Tipo Moneda</th>
 								<th scope="col">Tipo Transaccion</th>
 							</tr>
@@ -81,6 +82,7 @@
 								+"<td>" + tabla.get(i).getUsuarioEnvia().getNombre() + "</td>"		
 								+"<td>" + tabla.get(i).getUsuarioRecibe().getNombre() + "</td>"		
 								+"<td>" + tabla.get(i).getSaldo() + "</td>"	
+								+"<td>" + tabla.get(i).getDate() + "</td>"	
 								+"<td>" + tabla.get(i).getMoneda().getNombre() + "</td>"	
 								+"<td>" + tabla.get(i).getTipoTransaccion().getTipoTransaccion() + "</td>"											
 								+"</tr>");

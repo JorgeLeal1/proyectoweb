@@ -14,10 +14,9 @@ import com.proyectoweb.web.model.TipoTransaccionModel;
 import com.proyectoweb.web.model.TransaccionModel;
 import com.proyectoweb.web.model.UsuarioModel;
 
-
 @Repository
 public class TransaccionDaoImp implements TransaccionDaoInterface{
-
+	
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 
@@ -25,7 +24,7 @@ public class TransaccionDaoImp implements TransaccionDaoInterface{
 	public List<TransaccionModel> obtenerTodo() {
 		try {
 		// selecciona todos los registros de la bd ordenado por run cliente
-		String query = "select t.saldo, uv.nombre as nombreEnv, uv.run_cliente as runEnv, ur.nombre as nombreRec, ur.run_cliente as runRec, m.nombre, m.signo, tt.tipotransaccion "
+		String query = "select t.saldo, t.date, uv.nombre as nombreEnv, uv.run_cliente as runEnv, ur.nombre as nombreRec, ur.run_cliente as runRec, m.nombre, m.signo, tt.tipotransaccion "
 				+ "from transaccion t "
 				+ "inner join usuario uv "
 				+ "on t.idUsuarioEnvia = uv.id "
@@ -34,7 +33,8 @@ public class TransaccionDaoImp implements TransaccionDaoInterface{
 				+ "inner join moneda m "
 				+ "on t.idMoneda = m.id "
 				+ "inner join tipoTransaccion tt "
-				+ "on t.idTipoTransaccion = tt.idTipoTransaccion";
+				+ "on t.idTipoTransaccion = tt.idTipoTransaccion"
+				+ "order by t.date desc";
 				
 		  List<TransaccionModel> lista = jdbcTemplate.query(query,
 				  (ResultSet rs, int rowNum) -> {
@@ -42,6 +42,7 @@ public class TransaccionDaoImp implements TransaccionDaoInterface{
 					//Crea objetos
 					TransaccionModel transaccion = new TransaccionModel();
 					transaccion.setSaldo(rs.getDouble("saldo"));
+					transaccion.setDate(rs.getDate("date"));
 					
 					UsuarioModel usuarioEnv = new UsuarioModel();
 					usuarioEnv.setNombre(rs.getString("nombreEnv"));
@@ -76,7 +77,7 @@ public class TransaccionDaoImp implements TransaccionDaoInterface{
 	public List<TransaccionModel> obtenerPorId(int id) {
 		try {
 		// selecciona todos los registros de la bd ordenado por run cliente
-		String query = "select t.saldo, uv.nombre as nombreEnv, uv.run_cliente as runEnv, ur.nombre as nombreRec, ur.run_cliente as runRec, m.nombre, m.signo, tt.tipotransaccion "
+		String query = "select t.saldo, t.date, uv.nombre as nombreEnv, uv.run_cliente as runEnv, ur.nombre as nombreRec, ur.run_cliente as runRec, m.nombre, m.signo, tt.tipotransaccion "
 				+ "from transaccion t "
 				+ "inner join usuario uv "
 				+ "on t.idUsuarioEnvia = uv.id "
@@ -86,7 +87,8 @@ public class TransaccionDaoImp implements TransaccionDaoInterface{
 				+ "on t.idMoneda = m.id "
 				+ "inner join tipoTransaccion tt "
 				+ "on t.idTipoTransaccion = tt.idTipoTransaccion "
-				+ "where t.idUsuarioEnvia = ? or t.idUsuarioRecibe = ?";
+				+ "where t.idUsuarioEnvia = ? or t.idUsuarioRecibe = ? "
+				+ "order by t.date desc";
 				
 		  List<TransaccionModel> lista = jdbcTemplate.query(query,
 				  (ResultSet rs, int rowNum) -> {
@@ -94,6 +96,7 @@ public class TransaccionDaoImp implements TransaccionDaoInterface{
 					//Crea objetos
 					TransaccionModel transaccion = new TransaccionModel();
 					transaccion.setSaldo(rs.getDouble("saldo"));
+					transaccion.setDate(rs.getDate("date"));
 					
 					UsuarioModel usuarioEnv = new UsuarioModel();
 					usuarioEnv.setNombre(rs.getString("nombreEnv"));
@@ -128,16 +131,17 @@ public class TransaccionDaoImp implements TransaccionDaoInterface{
 
 	@Override
 	public void insertarTransaccion(TransaccionModel transaccion) {
-		
+
 		try {
 			//Inserta cliente 
-			String query = "INSERT INTO transaccion (idUsuarioEnvia, idUsuarioRecibe, saldo, idMoneda, idTipoTransaccion) "
-							+ "VALUES (?, ?, ?, ?, ?)";
+			String query = "INSERT INTO transaccion (idUsuarioEnvia, idUsuarioRecibe, saldo, date ,idMoneda, idTipoTransaccion) "
+							+ "VALUES (?, ?, ?, ?, ?, ?)";
 	
 			jdbcTemplate.update(query,
 					transaccion.getUsuarioEnvia().getId(),
 					transaccion.getUsuarioRecibe().getId(),
 					transaccion.getSaldo(),
+					transaccion.getDate(),
 					transaccion.getMoneda().getId(),
 					transaccion.getTipoTransaccion().getIdTipoTransaccion()
 					

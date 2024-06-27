@@ -192,6 +192,8 @@ $(document).ready(function() {
 		let saldo_actual = $("#Tsaldo_actual").val();
 		let saldo = $("#Tsaldo").val();
 
+
+		if(saldo_actual >= saldo){
 		$.ajax({
 			url: '/proyectoweb/TranferirSaldo',
 			type: "POST",
@@ -209,6 +211,12 @@ $(document).ready(function() {
 
 			}
 		});
+		}else{
+				alert = "<div class='alert alert-danger alert-dismissible fade show  text-center' role='alert' style='padding-top: 0px; padding-bottom: 0px; '>"
+					+ "<p>Saldo insuficiente!.</p>"
+					+ "</div>";
+				$("#TranferirSaldoMensaje").html(alert);
+		}
 
 	});
 

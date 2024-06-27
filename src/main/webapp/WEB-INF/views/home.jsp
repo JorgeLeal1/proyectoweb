@@ -40,7 +40,7 @@
 					<a class="nav-link" aria-current="page" href="depositar">Depositar saldo</a> 
 					<a class="nav-link" aria-current="page" href="retirar">Retirar saldo</a> 
 					<a class="nav-link" aria-current="page" href=transferir>Transferir</a>						
-					<a class="nav-link" aria-current="page" href="movimientos">Listar Cuentas</a>
+					<a class="nav-link" aria-current="page" href="movimientos">Movimientos</a>
 				
 				</div>
 			</div>
@@ -101,7 +101,7 @@
 							<div class="card h-100">
 								<a class="nav-link" href="javascript:void(0)"
 									id="linkTransferir"> <img
-									src="/assets/img/ultimosMovimientos.jpg" width="150px"
+									src="/assets/img/transferir.jpg" width="150px"
 									height="150px" class="card-img-top" alt="...">
 									<div class="card-body">
 										<h6>Transferir</h6>
@@ -117,7 +117,7 @@
 									src="/assets/img/ultimosMovimientos.jpg" width="150px"
 									height="150px" class="card-img-top" alt="...">
 									<div class="card-body">
-										<h6>Listar Cuentas</h6>
+										<h6>Movimientos</h6>
 									</div>
 								</a>
 							</div>

@@ -21,40 +21,36 @@ import com.proyectoweb.web.model.CuentaModel;
 import com.proyectoweb.web.model.UsuarioModel;
 
 @RestController
-@SessionAttributes({"run"})
+@SessionAttributes({ "run" })
 @RequestMapping("/proyectoweb")
 public class ClienteController {
-	
+
 	private CuentaServiceInterface cuentaServiceInterface;
 	private ClienteServiceInterface clienteServiceInterface;
 	private UsuarioServiceInterface usuarioServiceInterface;
-	
-	public ClienteController(
-			CuentaServiceInterface cuentaServiceInterface, 
-			ClienteServiceInterface clienteServiceInterface, 
-			UsuarioServiceInterface usuarioServiceInterface 
-			) {
-		
+
+	public ClienteController(CuentaServiceInterface cuentaServiceInterface,
+			ClienteServiceInterface clienteServiceInterface, UsuarioServiceInterface usuarioServiceInterface) {
+
 		this.cuentaServiceInterface = cuentaServiceInterface;
 		this.clienteServiceInterface = clienteServiceInterface;
-		this.usuarioServiceInterface = usuarioServiceInterface;		
+		this.usuarioServiceInterface = usuarioServiceInterface;
 	}
-	
-    
-    @GetMapping("/obtenerCliente/{Run}")
-	public Map<String, Object> obtenerCliente( @PathVariable String Run){
-		
-		ClienteModel cliente= clienteServiceInterface.obtenerCliente(Run);
-		
-        Map<String, Object> json = new HashMap<>();
-        //nroCuenta, alias, banco, saldo
-        json.put("nombre1", cliente.getNombre1());
-        json.put("nombre2", cliente.getNombre2());
-        json.put("appaterno", cliente.getAppaterno());
-        json.put("apmaterno", cliente.getApmaterno());
-        
+
+	@GetMapping("/obtenerCliente/{Run}")
+	public Map<String, Object> obtenerCliente(@PathVariable String Run) {
+
+		ClienteModel cliente = clienteServiceInterface.obtenerCliente(Run);
+
+		Map<String, Object> json = new HashMap<>();
+		// nroCuenta, alias, banco, saldo
+		json.put("nombre1", cliente.getNombre1());
+		json.put("nombre2", cliente.getNombre2());
+		json.put("appaterno", cliente.getAppaterno());
+		json.put("apmaterno", cliente.getApmaterno());
+
 		return json;
-		
+
 	}
 
 }

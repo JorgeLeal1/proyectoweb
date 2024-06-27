@@ -1,12 +1,14 @@
 package com.proyectoweb.web.model;
 
+import java.util.Date;
+
 public class TransaccionModel {
 
 	private int id;
 	private UsuarioModel usuarioEnvia;
 	private UsuarioModel usuarioRecibe;
 	private double saldo;
-	private String date;
+	private Date date;
 	private MonedaModel moneda;
 	private TipoTransaccionModel tipoTransaccion;
 	
@@ -35,12 +37,7 @@ public class TransaccionModel {
 	public void setSaldo(double saldo) {
 		this.saldo = saldo;
 	}
-	public String getDate() {
-		return date;
-	}
-	public void setDate(String date) {
-		this.date = date;
-	}
+
 	public MonedaModel getMoneda() {
 		return moneda;
 	}
@@ -52,6 +49,12 @@ public class TransaccionModel {
 	}
 	public void setTipoTransaccion(TipoTransaccionModel tipoTransaccion) {
 		this.tipoTransaccion = tipoTransaccion;
+	}
+	public Date getDate() {
+		return date;
+	}
+	public void setDate(Date date) {
+		this.date = date;
 	}
 		
 	

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 25-06-2024 a las 08:09:19
+-- Tiempo de generación: 27-06-2024 a las 07:44:56
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -62,8 +62,8 @@ CREATE TABLE `cuenta` (
 --
 
 INSERT INTO `cuenta` (`nroCuenta`, `alias`, `banco`, `saldo`, `run_cliente`) VALUES
-(5, 'LaClaudia', 'Banco de Chile', 0, '16286667-2'),
-(37, 'ElPedrox', 'Banco Estado', 57, '16330225-k');
+(5, 'LaClaudia', 'Banco de Chile', 150005, '16286667-2'),
+(37, 'ElPedrox', 'Banco Estado', 430, '16330225-k');
 
 -- --------------------------------------------------------
 
@@ -75,16 +75,16 @@ CREATE TABLE `cuentatercero` (
   `idCuentaTercero` int(11) NOT NULL,
   `nroCuentaTercero` int(20) NOT NULL,
   `run_clienteCuentaTercero` varchar(12) NOT NULL,
-  `nroCuentaOrigen` int(20) NOT NULL
+  `nroCuentaOrigen` int(20) NOT NULL,
+  `run_clienteOrigen` varchar(12) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `cuentatercero`
 --
 
-INSERT INTO `cuentatercero` (`idCuentaTercero`, `nroCuentaTercero`, `run_clienteCuentaTercero`, `nroCuentaOrigen`) VALUES
-(1, 37, '16330225-k', 37),
-(2, 5, '16286667-2', 37);
+INSERT INTO `cuentatercero` (`idCuentaTercero`, `nroCuentaTercero`, `run_clienteCuentaTercero`, `nroCuentaOrigen`, `run_clienteOrigen`) VALUES
+(8, 5, '16286667-2', 37, '16330225-k');
 
 -- --------------------------------------------------------
 
@@ -98,6 +98,33 @@ CREATE TABLE `moneda` (
   `signo` varchar(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
+--
+-- Volcado de datos para la tabla `moneda`
+--
+
+INSERT INTO `moneda` (`id`, `nombre`, `signo`) VALUES
+(1, 'Peso Chileno', 'CLP');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `tipotransaccion`
+--
+
+CREATE TABLE `tipotransaccion` (
+  `idTipoTransaccion` int(11) NOT NULL,
+  `tipoTransaccion` varchar(45) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `tipotransaccion`
+--
+
+INSERT INTO `tipotransaccion` (`idTipoTransaccion`, `tipoTransaccion`) VALUES
+(1, 'Deposito'),
+(2, 'Retiro'),
+(3, 'Transferencia');
+
 -- --------------------------------------------------------
 
 --
@@ -107,11 +134,21 @@ CREATE TABLE `moneda` (
 CREATE TABLE `transaccion` (
   `id` int(11) NOT NULL,
   `idUsuarioEnvia` int(11) NOT NULL,
-  `idUsuarioRecive` int(11) NOT NULL,
+  `idUsuarioRecibe` int(11) NOT NULL,
   `saldo` double NOT NULL,
-  `date` date NOT NULL,
-  `idMoneda` int(11) NOT NULL
+  `date` datetime NOT NULL,
+  `idMoneda` int(11) NOT NULL,
+  `idTipoTransaccion` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `transaccion`
+--
+
+INSERT INTO `transaccion` (`id`, `idUsuarioEnvia`, `idUsuarioRecibe`, `saldo`, `date`, `idMoneda`, `idTipoTransaccion`) VALUES
+(28, 2, 2, 1, '2024-06-27 01:11:21', 1, 1),
+(29, 2, 2, 390, '2024-06-27 01:14:15', 1, 2),
+(30, 2, 2, 150000, '2024-06-27 01:43:57', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -132,8 +169,8 @@ CREATE TABLE `usuario` (
 --
 
 INSERT INTO `usuario` (`id`, `nombre`, `correo_electronico`, `contrasena`, `run_cliente`) VALUES
-(1, 'Non sed recusandae ', 'pinuheman@mailinator.com', '111', '16330225-k'),
-(2, 'Id et neque veniam ut nostrud quaerat optio', 'qeziju@mailinator.com', '111', '16286667-2');
+(1, 'pedro.carmelo', 'pedro@mailinator.com', '111', '16330225-k'),
+(2, 'claudia.hope', 'qeziju@mailinator.com', '111', '16286667-2');
 
 --
 -- Índices para tablas volcadas
@@ -158,7 +195,8 @@ ALTER TABLE `cuenta`
 ALTER TABLE `cuentatercero`
   ADD PRIMARY KEY (`idCuentaTercero`),
   ADD KEY `fk_run_cliente_cuentatercero` (`run_clienteCuentaTercero`),
-  ADD KEY `fk_nroCuenta_cuentatercero` (`nroCuentaOrigen`);
+  ADD KEY `fk_nroCuenta_cuentatercero` (`nroCuentaOrigen`),
+  ADD KEY `fk_run_clienteOrigen_cuentatercero` (`run_clienteOrigen`);
 
 --
 -- Indices de la tabla `moneda`
@@ -167,13 +205,20 @@ ALTER TABLE `moneda`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indices de la tabla `tipotransaccion`
+--
+ALTER TABLE `tipotransaccion`
+  ADD PRIMARY KEY (`idTipoTransaccion`);
+
+--
 -- Indices de la tabla `transaccion`
 --
 ALTER TABLE `transaccion`
   ADD PRIMARY KEY (`id`),
   ADD KEY `fk_idUsuarioEnvia_transaccion` (`idUsuarioEnvia`),
-  ADD KEY `fk_idUsuarioRecive_transaccion` (`idUsuarioRecive`),
-  ADD KEY `fk_idMoneda_transaccion` (`idMoneda`);
+  ADD KEY `fk_idMoneda_transaccion` (`idMoneda`),
+  ADD KEY `fk_idTipoTransaccion_transaccion` (`idTipoTransaccion`),
+  ADD KEY `fk_idUsuarioRecive_transaccion` (`idUsuarioRecibe`);
 
 --
 -- Indices de la tabla `usuario`
@@ -190,13 +235,25 @@ ALTER TABLE `usuario`
 -- AUTO_INCREMENT de la tabla `cuentatercero`
 --
 ALTER TABLE `cuentatercero`
-  MODIFY `idCuentaTercero` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `idCuentaTercero` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT de la tabla `moneda`
 --
 ALTER TABLE `moneda`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT de la tabla `tipotransaccion`
+--
+ALTER TABLE `tipotransaccion`
+  MODIFY `idTipoTransaccion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT de la tabla `transaccion`
+--
+ALTER TABLE `transaccion`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- AUTO_INCREMENT de la tabla `usuario`
@@ -219,6 +276,7 @@ ALTER TABLE `cuenta`
 --
 ALTER TABLE `cuentatercero`
   ADD CONSTRAINT `fk_nroCuenta_cuentatercero` FOREIGN KEY (`nroCuentaOrigen`) REFERENCES `cuenta` (`nroCuenta`),
+  ADD CONSTRAINT `fk_run_clienteOrigen_cuentatercero` FOREIGN KEY (`run_clienteOrigen`) REFERENCES `cliente` (`run`),
   ADD CONSTRAINT `fk_run_cliente_cuentatercero` FOREIGN KEY (`run_clienteCuentaTercero`) REFERENCES `cliente` (`run`);
 
 --
@@ -226,8 +284,9 @@ ALTER TABLE `cuentatercero`
 --
 ALTER TABLE `transaccion`
   ADD CONSTRAINT `fk_idMoneda_transaccion` FOREIGN KEY (`idMoneda`) REFERENCES `moneda` (`id`),
+  ADD CONSTRAINT `fk_idTipoTransaccion_transaccion` FOREIGN KEY (`idTipoTransaccion`) REFERENCES `tipotransaccion` (`idTipoTransaccion`),
   ADD CONSTRAINT `fk_idUsuarioEnvia_transaccion` FOREIGN KEY (`idUsuarioEnvia`) REFERENCES `usuario` (`id`),
-  ADD CONSTRAINT `fk_idUsuarioRecive_transaccion` FOREIGN KEY (`idUsuarioRecive`) REFERENCES `usuario` (`id`);
+  ADD CONSTRAINT `fk_idUsuarioRecive_transaccion` FOREIGN KEY (`idUsuarioRecibe`) REFERENCES `usuario` (`id`);
 
 --
 -- Filtros para la tabla `usuario`

@@ -148,7 +148,7 @@
 									<h3 class="text-center col-sm-11" id="exampleModalLabel">Agregar
 										cuenta tercero</h3>
 									<h6 class="text-start fst-italic col-sm-11">
-										<span class="span_required">El usuario debe tener una
+										<span style="color:#3447e4">El usuario debe tener una
 											cuenta en el sistema para ser ingresado a sus contactos.</span>
 									</h6>
 								</div>
