@@ -45,7 +45,7 @@
 				<div class="navbar-nav">
 					<a class="nav-link" aria-current="page" href="depositar">Depositar saldo</a> 
 					<a class="nav-link" aria-current="page" href="retirar">Retirar saldo</a> 
-					<a class="nav-link" aria-current="page" href=transferir>Transferir</a>
+					<a class="nav-link" aria-current="page" href="transferir">Transferir</a>
 					<a class="nav-link" aria-current="page" href="movimientos">Movimientos</a>			
 				</div>
 			</div>
@@ -79,12 +79,12 @@
 						<%
 							for (int i = 0; i < tabla.size(); i++) {
 								out.print("<tr>" + ""
-								+"<td>" + tabla.get(i).getUsuarioEnvia().getNombre() + "</td>"		
-								+"<td>" + tabla.get(i).getUsuarioRecibe().getNombre() + "</td>"		
+								+"<td>" + tabla.get(i).getUsuarioenvia().getNombre() + "</td>"		
+								+"<td>" + tabla.get(i).getUsuariorecibe().getNombre() + "</td>"		
 								+"<td>" + tabla.get(i).getSaldo() + "</td>"	
 								+"<td>" + tabla.get(i).getDate() + "</td>"	
 								+"<td>" + tabla.get(i).getMoneda().getNombre() + "</td>"	
-								+"<td>" + tabla.get(i).getTipoTransaccion().getTipoTransaccion() + "</td>"											
+								+"<td>" + tabla.get(i).getTipotransaccion().getTipotransaccion() + "</td>"											
 								+"</tr>");
 							}
 						%>

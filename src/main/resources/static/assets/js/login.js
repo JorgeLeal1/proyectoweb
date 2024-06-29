@@ -26,27 +26,27 @@ $(document).ready(function() {
 		const inputRun = $("#run").val();
 		const inputContrasena = $("#contrasena").val();
 
-		console.log('run:', inputRun);
-		console.log('contrasena:', inputContrasena);
+		//console.log('run:', inputRun);
+		//console.log('contrasena:', inputContrasena);
 
 		let alert = "";
 		if (validaRut(inputRun)) {
-			console.log('Valido');
+			//console.log('Valido');
 
 			$.ajax({
 				url: '/proyectoweb/consultarClientePorRun',
 				type: "POST",
 				data: { Run: inputRun },
 				success: function(response) {
-					console.log(response);
-					if (response > 0) {
+					//console.log(response);
+					if (response) {
 
 						$.ajax({
 							url: '/proyectoweb/validarLogin',
 							type: "POST",
 							data: { run: inputRun, contrasena: inputContrasena },
 							success: function(response) {
-								console.log("Respuesta del servidor:", response);
+								//console.log("Respuesta del servidor:", response);
 
 								if (response > 0) {
 									alert = "<div class='alert alert-success alert-dismissible fade show  text-center' role='alert'>"

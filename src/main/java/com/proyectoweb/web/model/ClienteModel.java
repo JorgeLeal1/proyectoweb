@@ -1,11 +1,27 @@
 package com.proyectoweb.web.model;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name = "cliente")
 public class ClienteModel {
 
+	@Id
 	private String run;
+	
+	@Column(name="nombre1")
 	private String nombre1;
+	
+	@Column(name="nombre2")
 	private String nombre2;
+	
+	@Column(name="appaterno")
 	private String appaterno;
+	
+	@Column(name="apmaterno")
 	private String apmaterno;
 
 	public String getRun() {

@@ -1,24 +1,24 @@
 package com.proyectoweb.web.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import com.proyectoweb.web.model.CuentaModel;
+import com.proyectoweb.web.repository.CuentaRepository;
 
-import com.proyectoweb.web.interfaces.CuentaServiceInterface;
+import jakarta.transaction.Transactional;
 
 @Controller
 @SessionAttributes({ "run" })
 @RequestMapping("/proyectoweb")
 public class HomeController {
 
-	private CuentaServiceInterface cuentaServiceInterface;
-
-	public HomeController(CuentaServiceInterface cuentaServiceInterface) {
-		this.cuentaServiceInterface = cuentaServiceInterface;
-	}
-
+	@Autowired
+	private CuentaRepository cuentaR;
+	
 	// llama a index el cual tiene el login para ingresar
 	@GetMapping({ "/index" })
 	public String index() {
@@ -26,16 +26,36 @@ public class HomeController {
 	}
 
 	@GetMapping("/home") // ruta home
+	@Transactional 
 	public String home(Model model) {
 
 		// obtiene la variable session el run del usuario logeado
 		String run = (String) model.getAttribute("run");
-		// System.out.println(run);
-
+		
+		CuentaModel cuenta = cuentaR.obtenerCuenta(run);
+		//System.out.println(cuenta.getSaldo());
+		
+		//cuentaR.actualizarSaldoCuenta(300.0, "16330225-k");
+		
 		// obtiene el saldo del run seleccionado
-		model.addAttribute("saldo", cuentaServiceInterface.consultarSaldoPorRun(run));
-
+		model.addAttribute("saldo", cuenta.getSaldo());
 		return "home";// retorna a la vista a home
 	}
+	
+	/*
+	@PostMapping("/home") // ruta home
+	public ResponseEntity<CuentaModel> home(Model model) {
 
+		// obtiene la variable session el run del usuario logeado
+		//String run = (String) model.getAttribute("run");
+		
+		CuentaModel cuenta = cuentaR.consultarSaldoPorRun("16330225-k");
+		System.out.println(cuenta.getSaldo());
+		
+		// obtiene el saldo del run seleccionado
+		model.addAttribute("saldo", cuenta.getSaldo());
+
+		return new ResponseEntity<>(cuenta, HttpStatus.OK);// retorna a la vista a home
+	}
+	*/
 }

@@ -45,7 +45,7 @@
 				<div class="navbar-nav">
 					<a class="nav-link" aria-current="page" href="depositar">Depositar
 						saldo</a> <a class="nav-link" aria-current="page" href="retirar">Retirar
-						saldo</a> <a class="nav-link" aria-current="page" href=transferir>Transferir</a>
+						saldo</a> <a class="nav-link" aria-current="page" href="transferir">Transferir</a>
 					<a class="nav-link" aria-current="page" href="movimientos">Movimientos</a>
 				</div>
 			</div>
@@ -122,7 +122,7 @@
 								out.print("<tr>" + ""
 								+"<td>" + tabla.get(i).getCliente().getRun()+ "</td>"	
 								+"<td>" + tabla.get(i).getCliente().getNombre1()+ " " + tabla.get(i).getCliente().getAppaterno() + "</td>"			
-								+"<td>" + tabla.get(i).getNroCuentaTercero()+ "</td>"		
+								+"<td>" + tabla.get(i).getNrocuentatercero()+ "</td>"		
 								+"<td>" + tabla.get(i).getCuenta().getAlias()+ "</td>"	
 								+"<td>" + tabla.get(i).getCuenta().getBanco()+ "</td>"								
 								+"</tr>");

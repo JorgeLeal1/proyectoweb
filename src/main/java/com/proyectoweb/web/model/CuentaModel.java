@@ -1,28 +1,52 @@
 package com.proyectoweb.web.model;
 
-public class CuentaModel {
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 
-	private int nroCuenta;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name = "cuenta")
+public class CuentaModel {
+	
+	@Id
+	private Integer nrocuenta;
+	
+	@Column(name="alias")
 	private String alias;
+	
+	@Column(name="Banco")
 	private String Banco;
+	
+	@Column(name="saldo")
 	private double saldo;	
 
+	@ManyToOne
+	@JoinColumn(name = "run_cliente", referencedColumnName="run")
 	private ClienteModel cliente;
 	
 	// Metodos GET, SET
 	// ---------------------------------------------
 	
-	public int getNroCuenta() {
-		return nroCuenta;
-	}
 
-	public void setNroCuenta(int nroCuenta) {
-		this.nroCuenta = nroCuenta;
-	}
 
 	public String getAlias() {
 		return alias;
 	}
+	
+
+	public Integer getNrocuenta() {
+		return nrocuenta;
+	}
+
+
+	public void setNrocuenta(Integer nrocuenta) {
+		this.nrocuenta = nrocuenta;
+	}
+
 
 	public void setAlias(String alias) {
 		this.alias = alias;
@@ -43,7 +67,7 @@ public class CuentaModel {
 	public void setSaldo(double saldo) {
 		this.saldo = saldo;
 	}
-
+	
 	public ClienteModel getCliente() {
 		return cliente;
 	}
@@ -51,8 +75,5 @@ public class CuentaModel {
 	public void setCliente(ClienteModel cliente) {
 		this.cliente = cliente;
 	}
-	
-
-
 
 }

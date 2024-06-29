@@ -1,26 +1,50 @@
 package com.proyectoweb.web.model;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name = "cuentatercero")
 public class CuentaTerceroModel {
 
-	private int idCuentaTercero;
-	private int nroCuentaTercero;	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Integer idcuentatercero;
+	
+	@Column(name="nrocuentatercero")
+	private Integer nrocuentatercero;	
+	
+	@ManyToOne
+	@JoinColumn(name = "run_clientecuentatercero", referencedColumnName="run")
 	private ClienteModel cliente;
+	
+	@ManyToOne
+	@JoinColumn(name = "nrocuentaorigen", referencedColumnName="nrocuenta")
 	private CuentaModel cuenta;
+	
+	@ManyToOne
+	@JoinColumn(name = "run_clienteorigen", referencedColumnName="run")
 	private ClienteModel clienteOrigen;
 	
-
-	public int getIdCuentaTercero() {
-		return idCuentaTercero;
+	public Integer getIdcuentatercero() {
+		return idcuentatercero;
 	}
-	public void setIdCuentaTercero(int idCuentaTercero) {
-		this.idCuentaTercero = idCuentaTercero;
+	public void setIdcuentatercero(Integer idcuentatercero) {
+		this.idcuentatercero = idcuentatercero;
 	}
-	public int getNroCuentaTercero() {
-		return nroCuentaTercero;
+	public Integer getNrocuentatercero() {
+		return nrocuentatercero;
 	}
-	public void setNroCuentaTercero(int nroCuentaTercero) {
-		this.nroCuentaTercero = nroCuentaTercero;
+	public void setNrocuentatercero(Integer nrocuentatercero) {
+		this.nrocuentatercero = nrocuentatercero;
 	}
+	
 	public ClienteModel getCliente() {
 		return cliente;
 	}

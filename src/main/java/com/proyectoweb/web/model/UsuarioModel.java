@@ -1,19 +1,41 @@
 package com.proyectoweb.web.model;
 
-public class UsuarioModel {
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 
-	private int id;
+@Entity
+@Table(name = "usuario")
+public class UsuarioModel {
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Integer id;
+	
+	@Column(name="nombre")
 	private String nombre;
+	
+	@Column(name="correo_electronico")
 	private String correo_electronico;
+	
+	@Column(name="contrasena")
 	private String contrasena;
 
+	//@JoinColumn(name="run_cliente", foreignKey = @ForeignKey(name="fk_run_cliente_usuario"))
+	@ManyToOne
+	@JoinColumn(name = "run_cliente", referencedColumnName="run")
 	private ClienteModel cliente;
 	
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
@@ -48,6 +70,6 @@ public class UsuarioModel {
 	public void setCliente(ClienteModel cliente) {
 		this.cliente = cliente;
 	}
-
+	
 	
 }
