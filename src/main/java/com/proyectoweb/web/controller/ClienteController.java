@@ -1,6 +1,7 @@
 package com.proyectoweb.web.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,6 +22,7 @@ public class ClienteController {
 	
 	@ResponseBody
 	@PostMapping("/consultarClientePorRun")
+	@Secured("ROLE_USER")
 	public boolean consultarClientePorRun(@RequestParam String Run) {
 		
 		boolean resultado = clienteR.existsById(Run);

@@ -28,12 +28,13 @@ public class UsuarioController {
 	@Autowired
 	private UsuarioRepository usuarioR;
 	
-	@PostMapping("/nuevo")
+	@GetMapping("/nuevo")
 	private ResponseEntity<UsuarioModel> crearUsuario(){
 		
 		UsuarioModel usuario = new UsuarioModel();
-		usuario.setNombre("JorgeJPA");
-		usuario.setContrasena("JPA");
+		usuario.setNombre("JorgeJPA2");
+		usuario.setContrasena("111");
+		//usuario.setContrasena(new BCryptPasswordEncoder().encode("111"));
 		usuario.setCorreo_electronico("Correo@JPA.cl");
 
 		ClienteModel cliente = new ClienteModel();
@@ -43,9 +44,9 @@ public class UsuarioController {
 		usuario = usuarioR.save(usuario);
 		
 		return new ResponseEntity<>(usuario, HttpStatus.OK);
-		
 	}
 	
+
 	@GetMapping("/obtenerId/{id}")
 	private ResponseEntity<UsuarioModel> obtenerId(@PathVariable("id") Integer id){
 		
@@ -56,6 +57,7 @@ public class UsuarioController {
 		return new ResponseEntity<>(new UsuarioModel(), HttpStatus.NOT_FOUND);		
 	}	
 	
+
 	@GetMapping("/obtenerUsuarioPorId/{id}")
 	private ResponseEntity<UsuarioModel> obtenerUsuarioPorId(@PathVariable("id") Integer id){
 		
@@ -75,6 +77,7 @@ public class UsuarioController {
 		return new ResponseEntity<>(usuario, HttpStatus.OK);
 	}	
 	
+	
 	@ResponseBody
 	@PostMapping("/validarLogin")
 	public int validarLogin(@RequestParam String run, @RequestParam String contrasena, Model model) {
@@ -90,6 +93,5 @@ public class UsuarioController {
 		} 
 		return res;
 	}
-	
 	
 }

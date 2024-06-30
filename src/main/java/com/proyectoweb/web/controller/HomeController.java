@@ -1,6 +1,7 @@
 package com.proyectoweb.web.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,8 +20,9 @@ public class HomeController {
 	@Autowired
 	private CuentaRepository cuentaR;
 	
+	//	@Secured("ROLE_USER")
 	// llama a index el cual tiene el login para ingresar
-	@GetMapping({ "/index" })
+	@GetMapping("/index")
 	public String index() {
 		return "index";
 	}
