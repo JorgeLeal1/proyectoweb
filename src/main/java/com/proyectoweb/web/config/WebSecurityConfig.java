@@ -9,6 +9,7 @@ import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -38,7 +39,7 @@ public class WebSecurityConfig  {
 	@Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
-         
+         /*
 		http.authorizeHttpRequests(request -> request
 					.requestMatchers("/index","/").permitAll()
     				.anyRequest().authenticated()
@@ -46,9 +47,9 @@ public class WebSecurityConfig  {
 			.formLogin(form -> form.loginPage("/index").permitAll());
 			 
          return  http.build();
-		
+		*/
          
-         /*
+         
         return http
     		.authorizeHttpRequests(request -> request
     				.anyRequest()
@@ -58,16 +59,16 @@ public class WebSecurityConfig  {
         	.build();
         		
 		//return http.build();
-		*/
+		
     }
 
 	//Permite todas las url
-	/*
+	
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer() {
         return (web) -> web.ignoring().anyRequest();
     }
-    */
+    
     
 
     //Filtrar las url

@@ -10,10 +10,11 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import com.proyectoweb.web.model.CuentaModel;
 import com.proyectoweb.web.repository.CuentaRepository;
 
+import jakarta.servlet.http.HttpSession;
 import jakarta.transaction.Transactional;
 
 @Controller
-@SessionAttributes({ "run" })
+@SessionAttributes({ "run", "usuario" })
 @RequestMapping("/proyectoweb")
 public class HomeController {
 
@@ -26,6 +27,15 @@ public class HomeController {
 	public String index() {
 		return "index";
 	}
+	
+	@GetMapping("/logout")
+	public String logout(HttpSession session) {
+		
+        session.removeAttribute("run"); // Elimina la variable "run" de la sesión
+        session.removeAttribute("usuario"); // Elimina la variable "run" de la sesión
+		return "redirect:/proyectoweb/index";
+	}
+	
 
 	@GetMapping("/home") // ruta home
 	@Transactional 

@@ -11,9 +11,8 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.proyectoweb.web.repository.ClienteRepository;
 
-
 @Controller
-@SessionAttributes({ "run" })
+@SessionAttributes({ "run", "usuario" })
 @RequestMapping("/proyectoweb")
 public class ClienteController {
 
@@ -22,7 +21,6 @@ public class ClienteController {
 	
 	@ResponseBody
 	@PostMapping("/consultarClientePorRun")
-	@Secured("ROLE_USER")
 	public boolean consultarClientePorRun(@RequestParam String Run) {
 		
 		boolean resultado = clienteR.existsById(Run);

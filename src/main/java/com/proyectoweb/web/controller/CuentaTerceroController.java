@@ -23,7 +23,7 @@ import jakarta.transaction.Transactional;
 import org.springframework.ui.Model;
 
 @Controller
-@SessionAttributes({ "run" })
+@SessionAttributes({ "run", "usuario" })
 @RequestMapping("/proyectoweb")
 public class CuentaTerceroController {
 

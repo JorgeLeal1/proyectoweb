@@ -39,15 +39,16 @@
 				<div class="navbar-nav">
 					<a class="nav-link" aria-current="page" href="depositar">Depositar
 						saldo</a> <a class="nav-link" aria-current="page" href="retirar">Retirar
-						saldo</a> <a class="nav-link" aria-current="page" href=transferir>Transferir</a>
+						saldo</a> <a class="nav-link" aria-current="page" href="transferir">Transferir</a>
 					<a class="nav-link" aria-current="page" href="movimientos">Movimientos</a>		
 				</div>
 			</div>
-			<span class="navbar-text"> <a style="float: right;"
-				title="Logout" href="/"> <span
-					style="float: left; margin-right: 10px;">Bienvenido: ${run},  cerrar sesion </span>
-					<div class="login" style="float: left;"></div>
-			</a>
+			<span class="navbar-text"> 
+				<span style="float: left; margin-right: 10px;">Bienvenido: </span>
+				<a  title="Logout" href="/proyectoweb/logout" class="text-uppercase"> 
+					<span style="float: left; margin-right: 10px;" class="fw-bold">${usuario} </span>
+							<div class="login" style="float: left;"></div>
+				</a>
 			</span>
 		</div>
 	</nav>

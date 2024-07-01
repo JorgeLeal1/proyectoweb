@@ -17,4 +17,6 @@ public interface UsuarioRepository extends JpaRepository<UsuarioModel, Integer> 
 	@Query("SELECT count(*) FROM UsuarioModel u WHERE u.cliente.run=:run and u.contrasena=:contrasena")
 	public int validarLogin(@Param("run") String run, @Param("contrasena") String contrasena);
 	
+	
+	
 }

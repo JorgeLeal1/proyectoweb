@@ -166,7 +166,6 @@ $(document).ready(function() {
 	});
 
 
-
 	$("#TablaTercero tr:not(:first)").click(function() {
 		// Obtiene el valor del primer <td> en la fila
 		let run = $(this).find("td:first").text();
@@ -194,23 +193,23 @@ $(document).ready(function() {
 
 
 		if(saldo_actual >= saldo){
-		$.ajax({
-			url: '/proyectoweb/TranferirSaldo',
-			type: "POST",
-			data: { Run: run, Saldo: saldo },
-			success: function(response) {
-
-				alert = "<div class='alert alert-success alert-dismissible fade show  text-center' role='alert' style='padding-top: 0px; padding-bottom: 0px; '>"
-					+ "<p>Transferencia realizada correctamente!.</p>"
-					+ "</div>";
-				$("#TranferirSaldoMensaje").html(alert);
-				$("#Tsaldo").val("");
-
-				$("#saldo_actual").val(saldo_actual - saldo);
-				$("#Tsaldo_actual").val(saldo_actual - saldo);
-
-			}
-		});
+			$.ajax({
+				url: '/proyectoweb/TranferirSaldo',
+				type: "POST",
+				data: { Run: run, Saldo: saldo },
+				success: function(response) {
+	
+					alert = "<div class='alert alert-success alert-dismissible fade show  text-center' role='alert' style='padding-top: 0px; padding-bottom: 0px; '>"
+						+ "<p>Transferencia realizada correctamente!.</p>"
+						+ "</div>";
+					$("#TranferirSaldoMensaje").html(alert);
+					$("#Tsaldo").val("");
+	
+					$("#saldo_actual").val(saldo_actual - saldo);
+					$("#Tsaldo_actual").val(saldo_actual - saldo);
+	
+				}
+			});
 		}else{
 				alert = "<div class='alert alert-danger alert-dismissible fade show  text-center' role='alert' style='padding-top: 0px; padding-bottom: 0px; '>"
 					+ "<p>Saldo insuficiente!.</p>"

@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,11 +16,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+import com.proyectoweb.web.model.ClienteModel;
 import com.proyectoweb.web.model.CuentaModel;
 import com.proyectoweb.web.model.MonedaModel;
 import com.proyectoweb.web.model.TipoTransaccionModel;
 import com.proyectoweb.web.model.TransaccionModel;
 import com.proyectoweb.web.model.UsuarioModel;
+import com.proyectoweb.web.repository.ClienteRepository;
 import com.proyectoweb.web.repository.CuentaRepository;
 import com.proyectoweb.web.repository.CuentaTerceroRepository;
 import com.proyectoweb.web.repository.TransaccionRepository;
@@ -30,10 +33,13 @@ import jakarta.transaction.Transactional;
 import org.springframework.ui.Model;
 
 @Controller
-@SessionAttributes({ "run" })
+@SessionAttributes({ "run", "usuario" })
 @RequestMapping("/proyectoweb")
 public class CuentaController {
 
+	@Autowired
+	private ClienteRepository clienteR;
+	
 	@Autowired
 	private CuentaRepository cuentaR;
 	
@@ -57,6 +63,56 @@ public class CuentaController {
 		return resultado;
 	}
 	*/
+	
+	/*-----------------------------------------------------------------------------------------*/
+	
+	@GetMapping("/registrar")
+	public String registrar(Model model) {
+		return "registrar";
+	}
+	/*
+	 * La anotación @ResponseBody indica que el valor devuelto debe ser tratado como
+	 * el cuerpo de la respuesta HTTP. y no una vista
+	 */
+	@Transactional 
+	@ResponseBody
+	@PostMapping("/registrarCuenta") // ruta home
+	public boolean registrar(@RequestParam String Run, @RequestParam String Nombre1, @RequestParam String Nombre2,
+			@RequestParam String Appaterno, @RequestParam String Apmaterno, @RequestParam double Nrocuenta,
+			@RequestParam String Alias, @RequestParam String Banco, @RequestParam String NombreUsuario,
+			@RequestParam String Email, @RequestParam String Contrasena) {
+
+		int nrocuenta = (int) Nrocuenta;
+
+		/* System.out.println(Run); */
+		ClienteModel cliente = new ClienteModel();
+		cliente.setRun(Run);
+		cliente.setNombre1(Nombre1);
+		cliente.setNombre2(Nombre2);
+		cliente.setAppaterno(Appaterno);
+		cliente.setApmaterno(Apmaterno);
+
+		CuentaModel cuenta = new CuentaModel();
+		cuenta.setNrocuenta(nrocuenta);
+		cuenta.setAlias(Alias);
+		cuenta.setBanco(Banco);
+		cuenta.setSaldo(0);// cuenta nueva tiene el saldo en cero
+		cuenta.setCliente(cliente);
+
+		UsuarioModel usuario = new UsuarioModel();
+		usuario.setNombre(NombreUsuario);
+		usuario.setCorreo_electronico(Email);
+		usuario.setContrasena(new BCryptPasswordEncoder().encode(Contrasena));
+		usuario.setCliente(cliente);
+
+		clienteR.save(cliente);
+		cuentaR.save(cuenta);
+		usuarioR.save(usuario);
+		
+		return true;
+
+	}
+	/*-----------------------------------------------------------------------------------------*/
 	
 	@ResponseBody
 	@GetMapping("/obtenerCuentaCliente/{run}")

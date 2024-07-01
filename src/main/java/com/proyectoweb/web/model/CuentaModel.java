@@ -30,14 +30,11 @@ public class CuentaModel {
 	
 	// Metodos GET, SET
 	// ---------------------------------------------
-	
-
 
 	public String getAlias() {
 		return alias;
 	}
 	
-
 	public Integer getNrocuenta() {
 		return nrocuenta;
 	}
